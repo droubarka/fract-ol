@@ -87,7 +87,7 @@ int	fractal_destroy(t_fractal *fractal)
 	return (1);
 }
 
-int	xclose(t_fractal *fractal)
+int	fractal_xclose(t_fractal *fractal)
 {
 	fractal_destroy(fractal);
 	exit(EXIT_SUCCESS);

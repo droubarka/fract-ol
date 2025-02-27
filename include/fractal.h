@@ -47,8 +47,8 @@ struct s_data
 
 struct s_graph
 {
-	double	real[2];
-	double	imag[2];
+	long double	real[2];
+	long double	imag[2];
 	t_data	data;
 };
 
@@ -61,9 +61,9 @@ struct s_fractal
 /* fractal_init.c */
 t_fractal	*fractal_init(int size_x, int size_y, char *title);
 int			fractal_destroy(t_fractal *fractal);
-int			xclose(t_fractal *fractal);
+int			fractal_xclose(t_fractal *fractal);
 
 /* fractals */
-int			mandelbrot(char *title);
+int			mandelbrot(int size_x, int size_y, char *title);
 
 #endif

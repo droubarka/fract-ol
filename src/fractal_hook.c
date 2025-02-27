@@ -1,41 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   fractal_hook.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mait-oub <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/22 06:22:17 by mait-oub          #+#    #+#             */
-/*   Updated: 2025/02/22 06:22:20 by mait-oub         ###   ########.fr       */
+/*   Created: 2025/02/27 17:13:42 by mait-oub          #+#    #+#             */
+/*   Updated: 2025/02/27 17:13:45 by mait-oub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractal.h"
+# include "fractal.h"
 
-int	usage(void)
+int	fractal_hook(t_fractal *fractal, int (*keyboard)(), int (*mouse)(), int (*xclose)())
 {
-	write(2, "which one?\n", 11); //?
-	return (1);
-}
-
-int	main(int argc, char **argv)
-{
-	if (argc < 2)
-	{
-		usage();
-		return (EXIT_FAILURE);
-	}
-
-	if (!ft_strncmp(argv[1], "mandelbrot", 11))
-	{
-		mandelbrot(WIDTH, HEIGHT, argv[1]);
-	}
-	else if (!ft_strncmp(argv[1], "julia", 6))
-	{
-	}
-	else if (!ft_strncmp(argv[1], "x", 6))
-	{
-	}
-
-	return (EXIT_SUCCESS);
+	mlx_hook();
 }
