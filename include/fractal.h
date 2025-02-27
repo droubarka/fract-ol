@@ -61,6 +61,7 @@ struct s_fractal
 /* fractal_init.c */
 t_fractal	*fractal_init(int size_x, int size_y, char *title);
 int			fractal_destroy(t_fractal *fractal);
+int			xclose(t_fractal *fractal);
 
 /* fractals */
 int			mandelbrot(char *title);
