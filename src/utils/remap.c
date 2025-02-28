@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractal_hook.c                                     :+:      :+:    :+:   */
+/*   remap.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mait-oub <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/27 17:13:42 by mait-oub          #+#    #+#             */
-/*   Updated: 2025/02/27 17:13:45 by mait-oub         ###   ########.fr       */
+/*   Created: 2025/02/27 23:44:55 by mait-oub          #+#    #+#             */
+/*   Updated: 2025/02/27 23:44:56 by mait-oub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "fractal.h"
+#include "utils.h"
 
-int	fractal_hook(t_fractal *fractal, int (*keyboard)(), int (*mouse)(), int (*xclose)())
+long double	remap(long double *old, long double *new, long double x)
 {
-	mlx_hook();
+	return (new[0] + (x - old[0]) * (new[1] - new[0]) / (old[1] - old[0]));
 }

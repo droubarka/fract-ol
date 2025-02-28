@@ -16,5 +16,6 @@
 # include <stddef.h>
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
+long double	remap(long double *old, long double *new, long double x);
 
 #endif

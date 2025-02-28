@@ -45,6 +45,7 @@ t_fractal	*fractal_init(int size_x, int size_y, char *title)
 {
 	t_fractal	*fractal;
 	t_mlx		*mlx;
+	t_data		*data;
 
 	fractal = fractal_new();
 	if (fractal != NULL)
@@ -60,6 +61,9 @@ t_fractal	*fractal_init(int size_x, int size_y, char *title)
 			fractal_destroy(fractal);
 			return (NULL);
 		}
+		data = &fractal->graph.data;
+		data->ptr = mlx_get_data_addr(mlx->img_ptr,
+				&data->depth, &data->size_line, &data->endian);
 	}
 	return (fractal);
 }
@@ -87,8 +91,10 @@ int	fractal_destroy(t_fractal *fractal)
 	return (1);
 }
 
-int	fractal_xclose(t_fractal *fractal)
+int	fractal_update(t_fractal *fractal)
 {
-	fractal_destroy(fractal);
-	exit(EXIT_SUCCESS);
+	t_mlx	*mlx;
+
+	mlx = fractal->mlx;
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
 }

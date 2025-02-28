@@ -25,6 +25,17 @@
 # define WIDTH  900
 # define HEIGHT 900
 
+# define MOUSE_UP   4
+# define MOUSE_DOWN 5
+
+typedef struct s_complex	t_complex;
+
+struct s_complex
+{
+	long double real;
+	long double imag;
+};
+
 typedef struct s_fractal	t_fractal;
 typedef struct s_mlx		t_mlx;
 typedef struct s_graph		t_graph;
@@ -40,7 +51,7 @@ struct s_mlx
 struct s_data
 {
 	char	*ptr;
-	int		bits_per_pixel;
+	int		depth;
 	int		size_line;
 	int		endian;
 };
@@ -49,6 +60,8 @@ struct s_graph
 {
 	long double	real[2];
 	long double	imag[2];
+	long double	size_x[2];
+	long double	size_y[2];
 	t_data	data;
 };
 
@@ -62,6 +75,11 @@ struct s_fractal
 t_fractal	*fractal_init(int size_x, int size_y, char *title);
 int			fractal_destroy(t_fractal *fractal);
 int			fractal_xclose(t_fractal *fractal);
+int fractal_update(t_fractal *fractal);
+
+/* fractal_loop.c */
+int	fractal_hook(t_fractal *fractal, int (*key)(), int (*mouse)(), int (*xclose)());
+int	fractal_loop(t_fractal *fractal);
 
 /* fractals */
 int			mandelbrot(int size_x, int size_y, char *title);
