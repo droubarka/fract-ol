@@ -16,17 +16,21 @@
 # include "mlx.h"
 # include "utils.h"
 
+# include <math.h>
 # include <stdlib.h>
 # include <X11/keysym.h>
+# include <X11/X.h>
 # include <unistd.h>
 
 # include <stdio.h> //?
 
-# define WIDTH  900
-# define HEIGHT 900
+# define WIDTH  600
+# define HEIGHT 600
 
 # define MOUSE_UP   4
 # define MOUSE_DOWN 5
+#define KEY_PLUS  65451
+#define KEY_MINUS 65453
 
 typedef struct s_complex	t_complex;
 
@@ -50,18 +54,19 @@ struct s_mlx
 
 struct s_data
 {
-	char	*ptr;
-	int		depth;
-	int		size_line;
-	int		endian;
+	int	*ptr;
+	int	depth;
+	int	size_line;
+	int	endian;
 };
 
 struct s_graph
 {
 	long double	real[2];
 	long double	imag[2];
-	long double	size_x[2];
-	long double	size_y[2];
+	int			iterations;
+	int			color;
+	t_complex	*c;
 	t_data	data;
 };
 
@@ -77,11 +82,20 @@ int			fractal_destroy(t_fractal *fractal);
 int			fractal_xclose(t_fractal *fractal);
 int fractal_update(t_fractal *fractal);
 
+/* fractal_zoom.c */
+int	fractal_move(t_fractal *fractal, int x, int y);
+int	fractal_zoom(t_fractal *fractal, int x, int y, double zoom);
+
 /* fractal_loop.c */
 int	fractal_hook(t_fractal *fractal, int (*key)(), int (*mouse)(), int (*xclose)());
 int	fractal_loop(t_fractal *fractal);
 
 /* fractals */
-int			mandelbrot(int size_x, int size_y, char *title);
+int			mandelbrot(char *title);
+int			julia(char *title, t_complex *c);
+int			tricorn(char *title, t_complex *c);
+
+/* others */
+int	get_color(t_fractal *fractal, int iter);
 
 #endif

@@ -16,3 +16,8 @@ long double	remap(long double *old, long double *new, long double x)
 {
 	return (new[0] + (x - old[0]) * (new[1] - new[0]) / (old[1] - old[0]));
 }
+
+long double	remap2(long double size, long double *new, long double x)
+{
+	return (new[0] + x * (new[1] - new[0]) / size);
+}

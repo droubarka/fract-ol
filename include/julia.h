@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   julia.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mait-oub <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/27 15:45:52 by mait-oub          #+#    #+#             */
-/*   Updated: 2025/02/27 15:45:54 by mait-oub         ###   ########.fr       */
+/*   Created: 2025/03/01 10:39:07 by mait-oub          #+#    #+#             */
+/*   Updated: 2025/03/03 12:21:42 by mait-oub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef JULIA_H
+# define JULIA_H
 
-# include <stddef.h>
+# include "fractal.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
-long double	remap(long double *old, long double *new, long double x);
-long double	remap2(long double size, long double *new, long double x);
+/* mandelbrot: mandelbrot.c */
+
+int	julia(char *title, t_complex *c);
+int	julia_graph(t_fractal *fractal);
+
+/* mandelbrot hooks: mandelbrot_hooks.c */
+
+int	julia_key(int keysym, t_fractal *fractal);
+int	julia_mouse(int keysym, int x, int y, t_fractal *fractal);
+
+/* mandelbrot hooks: mandelbrot_hooks.c */
+
+//int	get_color(t_fractal *fractal, int iterations);
 
 #endif

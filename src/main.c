@@ -28,13 +28,15 @@ int	main(int argc, char **argv)
 
 	if (!ft_strncmp(argv[1], "mandelbrot", 11))
 	{
-		mandelbrot(WIDTH, HEIGHT, argv[1]);
+		mandelbrot(argv[1]);
 	}
 	else if (!ft_strncmp(argv[1], "julia", 6))
 	{
+		julia(argv[1], &((t_complex){-.835, -.321}));
 	}
 	else if (!ft_strncmp(argv[1], "x", 6))
 	{
+		tricorn(argv[1], &((t_complex){0, 0}));
 	}
 
 	return (EXIT_SUCCESS);

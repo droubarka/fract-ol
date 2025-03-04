@@ -62,7 +62,7 @@ t_fractal	*fractal_init(int size_x, int size_y, char *title)
 			return (NULL);
 		}
 		data = &fractal->graph.data;
-		data->ptr = mlx_get_data_addr(mlx->img_ptr,
+		data->ptr = (int *) mlx_get_data_addr(mlx->img_ptr,
 				&data->depth, &data->size_line, &data->endian);
 	}
 	return (fractal);
@@ -97,4 +97,5 @@ int	fractal_update(t_fractal *fractal)
 
 	mlx = fractal->mlx;
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
+	return (1);
 }

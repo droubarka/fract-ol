@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mandelbrot.c                                       :+:      :+:    :+:   */
+/*   tricorn.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mait-oub <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 08:12:03 by mait-oub          #+#    #+#             */
-/*   Updated: 2025/02/26 08:12:04 by mait-oub         ###   ########.fr       */
+/*   Updated: 2025/03/04 07:02:13 by mait-oub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mandelbrot.h"
+#include "tricorn.h"
 
-static int	mandelbrot_get_iterations(t_fractal *fractal, t_complex *c)
+static int	tricorn_get_iterations(t_fractal *fractal, t_complex *c)
 {
 	int			iterations;
 	t_graph		*graph;
@@ -26,7 +26,7 @@ static int	mandelbrot_get_iterations(t_fractal *fractal, t_complex *c)
 	while (iterations < graph->iterations)
 	{
 		zx.real = (z0.real * z0.real) - (z0.imag * z0.imag) + c->real;
-		zx.imag = 2 * z0.real * z0.imag + c->imag;
+		zx.imag = -2 * z0.real * z0.imag + c->imag;
 		iterations++;
 		if (4 <= (zx.real * zx.real + zx.imag * zx.imag))
 		{
@@ -38,7 +38,7 @@ static int	mandelbrot_get_iterations(t_fractal *fractal, t_complex *c)
 	return (iterations);
 }
 
-static int	mandelbrot_color(t_fractal *fractal, int iterations)
+static int	tricorn_color(t_fractal *fractal, int iterations)
 {
 	t_graph	*graph;
 
@@ -50,20 +50,20 @@ static int	mandelbrot_color(t_fractal *fractal, int iterations)
 	return (get_color(fractal, iterations));
 }
 
-static int	mandelbrot_draw(t_fractal *fractal, t_complex *c, int x, int y)
+static int	tricorn_draw(t_fractal *fractal, t_complex *c, int x, int y)
 {
 	int		iterations;
 	int		offset;
 	t_data	*data;
 
 	data = &fractal->graph.data;
-	iterations = mandelbrot_get_iterations(fractal, c);
+	iterations = tricorn_get_iterations(fractal, c);
 	offset = (y * data->size_line + x * (data->depth / 8)) / 4;
-	data->ptr[offset] = mandelbrot_color(fractal, iterations);
+	data->ptr[offset] = tricorn_color(fractal, iterations);
 	return (1);
 }
 
-int	mandelbrot_graph(t_fractal *fractal)
+int	tricorn_graph(t_fractal *fractal)
 {
 	int			x;
 	int			y;
@@ -76,8 +76,8 @@ int	mandelbrot_graph(t_fractal *fractal)
 	    while (x < WIDTH)
         {
 			c.real = remap2(WIDTH, fractal->graph.real, x);
-			c.imag = remap2(HEIGHT, fractal->graph.imag, y);
-			mandelbrot_draw(fractal, &c, x, y);
+			c.imag = remap2(HEIGHT, fractal->graph.imag, HEIGHT - y - 1);
+			tricorn_draw(fractal, &c, x, y);
 			x++;
         }
 		y++;
@@ -86,7 +86,7 @@ int	mandelbrot_graph(t_fractal *fractal)
 	return (1);
 }
 
-int	mandelbrot(char *title)
+int	tricorn(char *title, t_complex *c)
 {
 	t_fractal	*fractal;
 
@@ -101,8 +101,9 @@ int	mandelbrot(char *title)
 	fractal->graph.imag[1] = +2;
 	fractal->graph.iterations = 30;
 	fractal->graph.color = 0;
-	mandelbrot_graph(fractal);
-	fractal_hook(fractal, mandelbrot_key, mandelbrot_mouse, fractal_xclose);
+	fractal->graph.c = c;
+	tricorn_graph(fractal);
+	fractal_hook(fractal, tricorn_key, tricorn_mouse, fractal_xclose);
 	fractal_loop(fractal);
 	return (1);
 }

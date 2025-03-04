@@ -17,7 +17,7 @@ int	fractal_hook(t_fractal *fractal, int (*key)(), int (*mouse)(), int (*xc)())
 	t_mlx	*mlx;
 
 	mlx = fractal->mlx;
-	mlx_key_hook(mlx->win_ptr, key, fractal);
+	mlx_hook(mlx->win_ptr, 2, 1, key, fractal);
 	mlx_mouse_hook(mlx->win_ptr, mouse, fractal);
 	mlx_hook(mlx->win_ptr, 17, 0, xc, fractal);
 	return (1);
@@ -25,11 +25,13 @@ int	fractal_hook(t_fractal *fractal, int (*key)(), int (*mouse)(), int (*xc)())
 
 int	fractal_loop(t_fractal *fractal)
 {
-	return (mlx_loop(fractal->mlx->mlx_ptr));
+	mlx_loop(fractal->mlx->mlx_ptr);
+	return (1);
 }
 
 int	fractal_xclose(t_fractal *fractal)
 {
 	fractal_destroy(fractal);
 	exit(EXIT_SUCCESS);
+	return (1);
 }

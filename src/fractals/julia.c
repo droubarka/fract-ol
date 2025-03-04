@@ -1,44 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mandelbrot.c                                       :+:      :+:    :+:   */
+/*   julia.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mait-oub <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 08:12:03 by mait-oub          #+#    #+#             */
-/*   Updated: 2025/02/26 08:12:04 by mait-oub         ###   ########.fr       */
+/*   Updated: 2025/03/03 12:11:44 by mait-oub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mandelbrot.h"
+#include "julia.h"
 
-static int	mandelbrot_get_iterations(t_fractal *fractal, t_complex *c)
+static int	julia_get_iterations(t_fractal *fractal, t_complex *z0)
 {
 	int			iterations;
 	t_graph		*graph;
-	t_complex	z0;
 	t_complex	zx;
 
 	graph = &fractal->graph;
-	z0.real = 0;
-	z0.imag = 0;
 	iterations = 0;
 	while (iterations < graph->iterations)
 	{
-		zx.real = (z0.real * z0.real) - (z0.imag * z0.imag) + c->real;
-		zx.imag = 2 * z0.real * z0.imag + c->imag;
+		zx.real = (z0->real * z0->real) - (z0->imag * z0->imag) + graph->c->real;
+		zx.imag = 2 * z0->real * z0->imag + graph->c->imag;
 		iterations++;
 		if (4 <= (zx.real * zx.real + zx.imag * zx.imag))
 		{
 			return (iterations);
 		}
-		z0.real = zx.real;
-		z0.imag = zx.imag;
+		z0->real = zx.real;
+		z0->imag = zx.imag;
 	}
 	return (iterations);
 }
 
-static int	mandelbrot_color(t_fractal *fractal, int iterations)
+static int	julia_color(t_fractal *fractal, int iterations)
 {
 	t_graph	*graph;
 
@@ -50,24 +47,24 @@ static int	mandelbrot_color(t_fractal *fractal, int iterations)
 	return (get_color(fractal, iterations));
 }
 
-static int	mandelbrot_draw(t_fractal *fractal, t_complex *c, int x, int y)
+static int	julia_draw(t_fractal *fractal, t_complex *z0, int x, int y)
 {
 	int		iterations;
 	int		offset;
 	t_data	*data;
 
 	data = &fractal->graph.data;
-	iterations = mandelbrot_get_iterations(fractal, c);
+	iterations = julia_get_iterations(fractal, z0);
 	offset = (y * data->size_line + x * (data->depth / 8)) / 4;
-	data->ptr[offset] = mandelbrot_color(fractal, iterations);
+	data->ptr[offset] = julia_color(fractal, iterations);
 	return (1);
 }
 
-int	mandelbrot_graph(t_fractal *fractal)
+int	julia_graph(t_fractal *fractal)
 {
 	int			x;
 	int			y;
-	t_complex	c;
+	t_complex	z0;
 
 	y = 0;
     while (y < HEIGHT)
@@ -75,9 +72,9 @@ int	mandelbrot_graph(t_fractal *fractal)
 		x = 0;
 	    while (x < WIDTH)
         {
-			c.real = remap2(WIDTH, fractal->graph.real, x);
-			c.imag = remap2(HEIGHT, fractal->graph.imag, y);
-			mandelbrot_draw(fractal, &c, x, y);
+			z0.real = remap2(WIDTH, fractal->graph.real, x);
+			z0.imag = remap2(HEIGHT, fractal->graph.imag, HEIGHT - y - 1);
+			julia_draw(fractal, &z0, x, y);
 			x++;
         }
 		y++;
@@ -86,7 +83,7 @@ int	mandelbrot_graph(t_fractal *fractal)
 	return (1);
 }
 
-int	mandelbrot(char *title)
+int	julia(char *title, t_complex *c)
 {
 	t_fractal	*fractal;
 
@@ -101,8 +98,9 @@ int	mandelbrot(char *title)
 	fractal->graph.imag[1] = +2;
 	fractal->graph.iterations = 30;
 	fractal->graph.color = 0;
-	mandelbrot_graph(fractal);
-	fractal_hook(fractal, mandelbrot_key, mandelbrot_mouse, fractal_xclose);
+	fractal->graph.c = c;
+	julia_graph(fractal);
+	fractal_hook(fractal, julia_key, julia_mouse, fractal_xclose);
 	fractal_loop(fractal);
 	return (1);
 }
