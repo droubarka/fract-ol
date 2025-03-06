@@ -76,7 +76,9 @@ int	mandelbrot_graph(t_fractal *fractal)
 	    while (x < WIDTH)
         {
 			c.real = remap2(WIDTH, fractal->graph.real, x);
-			c.imag = remap2(HEIGHT, fractal->graph.imag, y);
+			c.imag = remap2(HEIGHT, fractal->graph.imag, HEIGHT - y - 1);
+			fractal->graph.position.real = c.real;
+			fractal->graph.position.imag = c.imag;
 			mandelbrot_draw(fractal, &c, x, y);
 			x++;
         }

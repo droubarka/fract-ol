@@ -66,6 +66,7 @@ struct s_graph
 	long double	imag[2];
 	int			iterations;
 	int			color;
+	t_complex	position;
 	t_complex	*c;
 	t_data	data;
 };

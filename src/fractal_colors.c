@@ -12,28 +12,63 @@
 
 #include "fractal.h"
 
-int	get_color(t_fractal *fractal, int iter)
+typedef struct {
+    unsigned char r, g, b; // RGB values in range [0, 255]
+} Color;
+
+// Function to initialize the mapping array
+void initializeMapping(Color mapping[], int size) {
+    // Manually set the RGB values for each color in the mapping array
+    mapping[0] = (Color){66, 30, 15};
+    mapping[1] = (Color){25, 7, 26};
+    mapping[2] = (Color){9, 1, 47};
+    mapping[3] = (Color){4, 4, 73};
+    mapping[4] = (Color){0, 7, 100};
+    mapping[5] = (Color){12, 44, 138};
+    mapping[6] = (Color){24, 82, 177};
+    mapping[7] = (Color){57, 125, 209};
+    mapping[8] = (Color){134, 181, 229};
+    mapping[9] = (Color){211, 236, 248};
+    mapping[10] = (Color){241, 233, 191};
+    mapping[11] = (Color){248, 201, 95};
+    mapping[12] = (Color){255, 170, 0};
+    mapping[13] = (Color){204, 128, 0};
+    mapping[14] = (Color){153, 87, 0};
+    mapping[15] = (Color){106, 52, 3};
+}
+
+// Function to get a color from the mapping array
+Color getColor(Color mapping[], int i) {
+    return mapping[i];
+}
+
+int	get_color(t_fractal *fractal, int iterations)
 {
-	unsigned char r, g, b;
+	Color mapping[16];
 
-	double t = ((double)iter + fractal->graph.color) / fractal->graph.iterations;
+	initializeMapping(mapping, 16);
+	Color color = mapping[iterations];
+	return (color.r << 16 | color.g << 8 | color.b);
+}
 
-	r = (unsigned char)(9 * (1 - t) * t * t * t * 255);
-	g = (unsigned char)(15 * (1 - t) * (1 - t) * t * t * 255);
-	b = (unsigned char)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255);
+int	xget_color(t_fractal *fractal, int iterations)
+{
+	unsigned char r;
+	unsigned char g;
+	unsigned char b;
+	double	t;
+
+	t = ((double) iterations + fractal->graph.color) / fractal->graph.iterations;
+
+	r = (unsigned char) (9 * (1 - t) * t * t * t * 255);
+	g = (unsigned char) (15 * (1 - t) * (1 - t) * t * t * 255);
+	b = (unsigned char) (8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255);
 
 	return (r << 16 | g << 8 | b);
 }
 
-/*
-int dget_color2(t_fractal *fractal, int iter) {
+int g3et_color(t_fractal *fractal, int iter) {
     unsigned char r, g, b;
-    if (iter == fractal->graph.iterations) {
-        // Inside the Mandelbrot set (black)
-        r = 0;
-        g = 0;
-        b = 0;
-    } else {
         // Outside the Mandelbrot set (lava-like color based on iterations)
         double t = ((double)iter + fractal->graph.color) / fractal->graph.iterations;
 
@@ -47,7 +82,5 @@ int dget_color2(t_fractal *fractal, int iter) {
             r = (unsigned char)(r * t * 2);                  // Darker red for cooler areas
             g = (unsigned char)(g * t * 2);                  // Darker orange for cooler areas
         }
-    }
     return (r << 16 | g << 8 | b);
 }
-*/
