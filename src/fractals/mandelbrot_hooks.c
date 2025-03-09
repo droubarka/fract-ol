@@ -20,23 +20,24 @@ static int	mandelbrot_move(int keysym, t_fractal *fractal)
 	if (keysym == XK_Left)
 	{
 		fractal_move(fractal, +scale_px, 0);
-		mandelbrot_graph(fractal);
 	}
 	else if (keysym == XK_Right)
 	{
 		fractal_move(fractal, -scale_px, 0);
-		mandelbrot_graph(fractal);
 	}
 	else if (keysym == XK_Up)
 	{
 		fractal_move(fractal, 0, -scale_px);
-		mandelbrot_graph(fractal);
 	}
 	else if (keysym == XK_Down)
 	{
 		fractal_move(fractal, 0, +scale_px);
-		mandelbrot_graph(fractal);
 	}
+	else
+	{
+		return (0);
+	}
+	mandelbrot_graph(fractal);
 	return (1);
 }
 
@@ -68,13 +69,15 @@ static int	mandelbrot_reset(t_fractal *fractal)
 	fractal->graph.real[1] = +2;
 	fractal->graph.imag[0] = -2;
 	fractal->graph.imag[1] = +2;
-	fractal->graph.iterations = 30;
+	fractal->graph.iterations = 40;
 	mandelbrot_graph(fractal);
 	return (1);
 }
 
 int	mandelbrot_key(int keysym, t_fractal *fractal)
 {
+	mandelbrot_move(keysym, fractal);
+	mandelbrot_iterations(keysym, fractal);
 	if (keysym == XK_Escape)
 	{
 		fractal_xclose(fractal);
@@ -86,20 +89,20 @@ int	mandelbrot_key(int keysym, t_fractal *fractal)
 	else if (keysym == XK_c)
 	{
 		fractal->graph.color += 1;
-		mandelbrot_graph(fractal);
 	}
 	else if (keysym == XK_v)
 	{
 		fractal->graph.color -= 1;
-		mandelbrot_graph(fractal);
 	}
 	else if (keysym == XK_x)
 	{
 		fractal->graph.color = 0;
-		mandelbrot_graph(fractal);
 	}
-	mandelbrot_move(keysym, fractal);
-	mandelbrot_iterations(keysym, fractal);
+	else
+	{
+		return (0);
+	}
+	mandelbrot_graph(fractal);
 	return (1);
 }
 
@@ -108,12 +111,15 @@ int	mandelbrot_mouse(int keysym, int x, int y, t_fractal *fractal)
 	if (keysym == Button4)
 	{
 		fractal_zoom(fractal, x, HEIGHT - y - 1, 0.9);
-		mandelbrot_graph(fractal);
 	}
 	else if (keysym == Button5)
 	{
 		fractal_zoom(fractal, x, HEIGHT - y - 1, 1.1);
-		mandelbrot_graph(fractal);
 	}
+	else
+	{
+		return (0);
+	}
+	mandelbrot_graph(fractal);
 	return (1);
 }

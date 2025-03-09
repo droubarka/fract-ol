@@ -14,10 +14,12 @@
 
 typedef struct {
     unsigned char r, g, b; // RGB values in range [0, 255]
-} Color;
+} color;
+
+typedef color Color;
 
 // Function to initialize the mapping array
-void initializeMapping(Color mapping[], int size) {
+void initializeMapping(color mapping[], int size) {
     // Manually set the RGB values for each color in the mapping array
     mapping[0] = (Color){66, 30, 15};
     mapping[1] = (Color){25, 7, 26};
@@ -42,21 +44,66 @@ Color getColor(Color mapping[], int i) {
     return mapping[i];
 }
 
-int	get_color(t_fractal *fractal, int iterations)
+
+typedef struct {
+    float r, g, b;
+} QColor;
+
+float _clamp(float min, float max, float value) {
+    if (value < min) return min;
+    if (value > max) return max;
+    return value;
+}
+
+#define MAX_ITERATIONS 30
+
+QColor QColor_mapping(int n) {
+    QColor mapping = {1.0f, 1.0f, 1.0f}; // Qt::white equivalent
+
+        double quotient = (double)n / (double)MAX_ITERATIONS;
+        double color = _clamp(0.0f, 1.0f, (float)quotient);
+
+        if (quotient > 0.5) {
+            // Close to the Mandelbrot set, the color changes from green to white
+            mapping.r = (float)color;
+            mapping.g = 1.0f;
+            mapping.b = (float)color;
+        } else {
+            // Far away, it changes from black to green
+            mapping.r = 0.0f;
+            mapping.g = 0.0f;
+            mapping.b = (float)color;
+        }
+
+    return mapping;
+}
+
+int	gxxet_color(t_fractal *fractal, int iterations)
 {
-	Color mapping[16];
+    QColor color = QColor_mapping(iterations);
+//	printf("%f,%f,%f\n", color.r, color.g, color.b);
+//    printf("%x\n", (int)(color.r * 65536) | (int)(color.g * 256) | (int)(color.b * 2));
+    return ((int)(color.r * 65536) | (int)(color.g * 256) | (int)(color.b * 2));
+}
+
+int	dddget_color(t_fractal *fractal, int iterations)
+{
+	color mapping[16];
 
 	initializeMapping(mapping, 16);
-	Color color = mapping[iterations];
+	color color = mapping[iterations];
 	return (color.r << 16 | color.g << 8 | color.b);
 }
 
-int	xget_color(t_fractal *fractal, int iterations)
+int	get_color(t_fractal *fractal, int iterations)
 {
 	unsigned char r;
 	unsigned char g;
 	unsigned char b;
 	double	t;
+
+	if (iterations == fractal->graph.iterations)
+		return (0x0);
 
 	t = ((double) iterations + fractal->graph.color) / fractal->graph.iterations;
 
@@ -67,7 +114,7 @@ int	xget_color(t_fractal *fractal, int iterations)
 	return (r << 16 | g << 8 | b);
 }
 
-int g3et_color(t_fractal *fractal, int iter) {
+int xxxxxxxxxxget_color(t_fractal *fractal, int iter) {
     unsigned char r, g, b;
         // Outside the Mandelbrot set (lava-like color based on iterations)
         double t = ((double)iter + fractal->graph.color) / fractal->graph.iterations;

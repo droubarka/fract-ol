@@ -24,8 +24,8 @@
 
 # include <stdio.h> //?
 
-# define WIDTH  600
-# define HEIGHT 600
+# define WIDTH  650
+# define HEIGHT 650
 
 # define MOUSE_UP   4
 # define MOUSE_DOWN 5
