@@ -83,14 +83,14 @@ int	mandelbrot(char *title)
 	fractal = fractal_init(WIDTH, HEIGHT, title);
 	if (fractal == NULL)
 	{
-		return (0);
+		return (EXIT_FAILURE);
 	}
 	fractal->graph.real[0] = -2;
 	fractal->graph.real[1] = +2;
 	fractal->graph.imag[0] = -2;
 	fractal->graph.imag[1] = +2;
-	fractal->graph.iterations = 40;
-	fractal->graph.color = 0;
+	fractal->graph.iterations = 40; //? reset
+	fractal->graph.color = 0; //? why?
 	mandelbrot_graph(fractal);
 	fractal_hook(fractal, mandelbrot_key, mandelbrot_mouse, fractal_xclose);
 	fractal_loop(fractal);

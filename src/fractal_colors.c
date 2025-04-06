@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "fractal.h"
-
+/*
 typedef struct {
     unsigned char r, g, b; // RGB values in range [0, 255]
 } color;
@@ -78,7 +78,7 @@ QColor QColor_mapping(int n) {
     return mapping;
 }
 
-int	gxxet_color(t_fractal *fractal, int iterations)
+int	gxxxxxxxxxxxxxxet_color(t_fractal *fractal, int iterations)
 {
     QColor color = QColor_mapping(iterations);
 //	printf("%f,%f,%f\n", color.r, color.g, color.b);
@@ -86,7 +86,7 @@ int	gxxet_color(t_fractal *fractal, int iterations)
     return ((int)(color.r * 65536) | (int)(color.g * 256) | (int)(color.b * 2));
 }
 
-int	dddget_color(t_fractal *fractal, int iterations)
+int	xxxxxxxxxxxxxxxxget_color(t_fractal *fractal, int iterations)
 {
 	color mapping[16];
 
@@ -94,6 +94,88 @@ int	dddget_color(t_fractal *fractal, int iterations)
 	color color = mapping[iterations];
 	return (color.r << 16 | color.g << 8 | color.b);
 }
+
+
+
+
+
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define NUM_POINTS 8
+#define NUM_INTERPOLATED 1000
+
+// Linear interpolation function
+double linear_interpolate(double x0, double y0, double x1, double y1, double x) {
+    return y0 + (y1 - y0) * (x - x0) / (x1 - x0);
+}
+
+// Function to perform interpolation
+void interpolate(double *x_observed, double *y_observed, double *x, double *y, int num_points, int num_interp) {
+    int j = 0;
+    for (int i = 0; i < num_interp; i++) {
+        while (j < num_points - 1 && x[i] > x_observed[j + 1]) {
+            j++;
+        }
+        y[i] = linear_interpolate(x_observed[j], y_observed[j], x_observed[j + 1], y_observed[j + 1], x[i]);
+    }
+}
+
+int	xxxxxxxxxxxxxget_color(t_fractal *fractal, int iterations)
+{
+    // Observed control points
+    double x_observed[NUM_POINTS] = {-0.1425, 0, 0.16, 0.42, 0.6425, 0.8575, 1, 1.16};
+    double yR_observed[NUM_POINTS] = {0, 0, 32, 237, 255, 0, 0, 32};
+    double yG_observed[NUM_POINTS] = {2, 7, 107, 255, 170, 2, 7, 107};
+    double yB_observed[NUM_POINTS] = {0, 100, 203, 255, 0, 0, 100, 203};
+
+    // Interpolated x values
+    double x[NUM_INTERPOLATED];
+    double step = (x_observed[NUM_POINTS - 1] - x_observed[0]) / (NUM_INTERPOLATED - 1);
+    
+    for (int i = 0; i < NUM_INTERPOLATED; i++) {
+        x[i] = x_observed[0] + i * step;
+    }
+
+    // Interpolated y values
+    double yR[NUM_INTERPOLATED], yG[NUM_INTERPOLATED], yB[NUM_INTERPOLATED];
+    
+    interpolate(x_observed, yR_observed, x, yR, NUM_POINTS, NUM_INTERPOLATED);
+    interpolate(x_observed, yG_observed, x, yG, NUM_POINTS, NUM_INTERPOLATED);
+    interpolate(x_observed, yB_observed, x, yB, NUM_POINTS, NUM_INTERPOLATED);
+
+    // Find indices where x crosses 0 and 1
+    int start = 0, end = NUM_INTERPOLATED;
+    for (int i = 0; i < NUM_INTERPOLATED; i++) {
+        if (x[i] >= 0) {
+            start = i;
+            break;
+        }
+    }
+    for (int i = 0; i < NUM_INTERPOLATED; i++) {
+        if (x[i] > 1) {
+            end = i;
+            break;
+        }
+    }
+
+    // Print the values within the range 0 to 1
+    printf("Interpolated Values (x, yR, yG, yB):\n");
+    for (int i = start; i < end; i++) {
+        printf("%f, %f, %f, %f\n", x[i], yR[i], yG[i], yB[i]);
+    }
+
+    return 0;
+}
+*/
+
+
+
+
+
+
 
 int	get_color(t_fractal *fractal, int iterations)
 {
@@ -114,6 +196,7 @@ int	get_color(t_fractal *fractal, int iterations)
 	return (r << 16 | g << 8 | b);
 }
 
+/*
 int xxxxxxxxxxget_color(t_fractal *fractal, int iter) {
     unsigned char r, g, b;
         // Outside the Mandelbrot set (lava-like color based on iterations)
@@ -131,3 +214,4 @@ int xxxxxxxxxxget_color(t_fractal *fractal, int iter) {
         }
     return (r << 16 | g << 8 | b);
 }
+*/

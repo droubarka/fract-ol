@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mait-oub <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/27 15:45:52 by mait-oub          #+#    #+#             */
-/*   Updated: 2025/02/27 15:45:54 by mait-oub         ###   ########.fr       */
+/*   Created: 2024/10/22 17:41:09 by mait-oub          #+#    #+#             */
+/*   Updated: 2024/10/22 17:41:11 by mait-oub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "utils.h"
 
-# include <stddef.h>
+size_t	ft_strlen(const char *s)
+{
+	size_t	length;
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
-long double	remap(long double *old, long double *new, long double x);
-long double	remap2(long double size, long double *new, long double x);
-
-size_t ft_strlen(const char *s);
-
-#endif
+	length = 0;
+	while (*s)
+	{
+		length++;
+		s++;
+	}
+	return (length);
+}

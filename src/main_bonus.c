@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mait-oub <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -19,6 +19,7 @@ static int	usage(void)
 	usage_msg = \
 	"Usage: ./fractol mandelbrot\n" \
 	"   Or: ./fractol julia <real> <imag>\n";
+	"   Or: ./fractol x\n";
 	write(2, usage_msg, ft_strlen(usage_msg));
 	return (1);
 }
@@ -33,8 +34,9 @@ int	main(int argc, char **argv)
 	}
 	else if (argc == 4 && !ft_strncmp(argv[1], "julia", 6))
 	{
-		julia_params.real = ft_strtold(argv[2]);
-		julia_params.imag = ft_strtold(argv[3]);
+//		julia_params.real = ft_atof(argv[2]);
+//		julia_params.imag = ft_atof(argv[3]);
+
 		julia(argv[1], &julia_params);
 	}
 	else

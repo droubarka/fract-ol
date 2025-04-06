@@ -24,6 +24,8 @@
 
 # include <stdio.h> //?
 
+typedef long double t_ldouble;
+
 # define WIDTH  650
 # define HEIGHT 650
 
@@ -85,7 +87,7 @@ int fractal_update(t_fractal *fractal);
 
 /* fractal_zoom.c */
 int	fractal_move(t_fractal *fractal, int x, int y);
-int	fractal_zoom(t_fractal *fractal, int x, int y, double zoom);
+int	fractal_zoom(t_fractal *fractal, int x, int y, t_ldouble zoom);
 
 /* fractal_loop.c */
 int	fractal_hook(t_fractal *fractal, int (*key)(), int (*mouse)(), int (*xclose)());
@@ -94,7 +96,6 @@ int	fractal_loop(t_fractal *fractal);
 /* fractals */
 int			mandelbrot(char *title);
 int			julia(char *title, t_complex *c);
-int			tricorn(char *title, t_complex *c);
 
 /* others */
 int	get_color(t_fractal *fractal, int iter);

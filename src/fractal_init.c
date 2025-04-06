@@ -18,13 +18,10 @@ static t_fractal	*fractal_new(void)
 	t_mlx		*mlx;
 
 	fractal = malloc(sizeof(t_fractal));
-	if (fractal == NULL)
-	{
-		return (NULL);
-	}
 	mlx = malloc(sizeof(t_mlx));
-	if (mlx == NULL)
+	if (fractal == NULL || mlx == NULL)
 	{
+		free(mlx);
 		free(fractal);
 		return (NULL);
 	}
@@ -52,10 +49,7 @@ t_fractal	*fractal_init(int size_x, int size_y, char *title)
 	{
 		mlx = fractal->mlx;
 		mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, size_x, size_y, title);
-		if (mlx->win_ptr != NULL)
-		{
-			mlx->img_ptr = mlx_new_image(mlx->mlx_ptr, size_x, size_y);
-		}
+		mlx->img_ptr = mlx_new_image(mlx->mlx_ptr, size_x, size_y);
 		if (mlx->win_ptr == NULL || mlx->img_ptr == NULL)
 		{
 			fractal_destroy(fractal);
@@ -64,6 +58,11 @@ t_fractal	*fractal_init(int size_x, int size_y, char *title)
 		data = &fractal->graph.data;
 		data->ptr = (int *) mlx_get_data_addr(mlx->img_ptr,
 				&data->depth, &data->size_line, &data->endian);
+		if (data->ptr == NULL)
+		{
+			fractal_destroy(fractal);
+			return (NULL);
+		}
 	}
 	return (fractal);
 }
