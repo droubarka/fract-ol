@@ -51,7 +51,7 @@ static int	mandelbrot_draw(t_fractal *fractal, t_complex *c, int x, int y)
 	return (1);
 }
 
-int	mandelbrot_graph(t_fractal *fractal)
+int	mandelbrot_render(t_fractal *fractal)
 {
 	int			x;
 	int			y;
@@ -89,10 +89,13 @@ int	mandelbrot(char *title)
 	fractal->graph.real[1] = +2;
 	fractal->graph.imag[0] = -2;
 	fractal->graph.imag[1] = +2;
-	fractal->graph.iterations = 40; //? reset
-	fractal->graph.color = 0; //? why?
+	fractal->graph.iterations = 40; //?
+	fractal->graph.color_theme = 0; //?
+	fractal->graph.render = mandelbrot_graph;
+
 	mandelbrot_graph(fractal);
 	fractal_hook(fractal, mandelbrot_key, mandelbrot_mouse, fractal_xclose);
 	fractal_loop(fractal);
 	return (1);
 }
+

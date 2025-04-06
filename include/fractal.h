@@ -28,76 +28,82 @@ typedef long double t_ldouble;
 
 # define WIDTH  650
 # define HEIGHT 650
+# define MOVE_PX 32
 
 # define MOUSE_UP   4
 # define MOUSE_DOWN 5
 #define KEY_PLUS  65451
 #define KEY_MINUS 65453
 
-typedef struct s_complex	t_complex;
-
-struct s_complex
-{
-	long double real;
-	long double imag;
-};
-
 typedef struct s_fractal	t_fractal;
 typedef struct s_mlx		t_mlx;
 typedef struct s_graph		t_graph;
 typedef struct s_data		t_data;
 
-struct s_mlx
+struct s_data					// done
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
-	void	*img_ptr;
-};
-
-struct s_data
-{
-	int	*ptr;
-	int	depth;
-	int	size_line;
-	int	endian;
+	int	*ptr;					// done
+	int	bpp;					// done
+	int	size_line;				// done
+	int	endian;					// done
 };
 
 struct s_graph
 {
-	long double	real[2];
-	long double	imag[2];
-	int			iterations;
-	int			color;
+	t_data		data;			// done
+	t_ldouble	real[2];		// done
+	t_ldouble	imag[2];		// done
+	int			iterations;		// done
+
+	int			color_theme;
+
+	int			(*render)(t_fractal *);			// done
+
 	t_complex	position;
 	t_complex	*c;
-	t_data	data;
 };
 
-struct s_fractal
+struct s_mlx					// done
 {
-	t_mlx	*mlx;
-	t_graph	graph;
+	void	*mlx_ptr;			// done
+	void	*win_ptr;			// done
+	void	*img_ptr;			// done
 };
 
-/* fractal_init.c */
-t_fractal	*fractal_init(int size_x, int size_y, char *title);
-int			fractal_destroy(t_fractal *fractal);
-int			fractal_xclose(t_fractal *fractal);
-int fractal_update(t_fractal *fractal);
+struct s_fractal				// done
+{
+	t_mlx	mlx;				// done
+	t_graph	graph;				// done
+};
 
-/* fractal_zoom.c */
+////////////////////////////////////////////////////////////////
+
+/* /src/fractal_init.c */
+t_fractal	*fractal_init(int size_x, int size_y, char *title);
+
+/* /src/fractal_destroy.c */
+int	fractal_destroy(t_fractal *fractal);
+
+/* /src/fractal_transform.c */
 int	fractal_move(t_fractal *fractal, int x, int y);
 int	fractal_zoom(t_fractal *fractal, int x, int y, t_ldouble zoom);
 
-/* fractal_loop.c */
-int	fractal_hook(t_fractal *fractal, int (*key)(), int (*mouse)(), int (*xclose)());
+/* /src/fractal_runtime.c */
+int	fractal_hook(t_fractal *fractal, int (*keyboard)(), int (*mouse)());
+int fractal_update(t_fractal *fractal);
 int	fractal_loop(t_fractal *fractal);
+int	fractal_close(t_fractal *fractal);
 
-/* fractals */
-int			mandelbrot(char *title);
-int			julia(char *title, t_complex *c);
+/* /src/fractal_colors.c */
 
-/* others */
-int	get_color(t_fractal *fractal, int iter);
+/* /src/fractal_hooks.c */
+
+int	fractal_mouse(int keysym, int x, int y, t_fractal *fractal);
+
+/* /src/fractals/mandelbrot.c */
+/* /src/fractals/julia.c */
+int	julia(char *title, t_complex *c);
+
+/* /src/fractals/x.c */
 
 #endif

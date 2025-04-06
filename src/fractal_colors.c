@@ -215,3 +215,4 @@ int xxxxxxxxxxget_color(t_fractal *fractal, int iter) {
     return (r << 16 | g << 8 | b);
 }
 */
+

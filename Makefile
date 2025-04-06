@@ -34,8 +34,10 @@ FRACTALS_FILES = \
 
 UTILS_DIR = $(SRC_DIR)/utils
 UTILS_FILES = \
+	$(UTILS_DIR)/ft_isdigit.c \
 	$(UTILS_DIR)/ft_strlen.c \
 	$(UTILS_DIR)/ft_strncmp.c \
+	$(UTILS_DIR)/ft_strtold.c \
 	$(UTILS_DIR)/remap.c
 
 SRC_FILES = \
@@ -43,6 +45,8 @@ SRC_FILES = \
 	$(SRC_DIR)/fractal_init.c \
 	$(SRC_DIR)/fractal_loop.c \
 	$(SRC_DIR)/fractal_zoom.c \
+	$(SRC_DIR)/error.c \
+	$(SRC_DIR)/init_julia_params.c \
 	$(FRACTALS_FILES) \
 	$(UTILS_FILES)
 

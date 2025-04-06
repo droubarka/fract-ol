@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractal_zoom.c                                     :+:      :+:    :+:   */
+/*   fractal_transform.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mait-oub <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,13 +14,13 @@
 
 int	fractal_move(t_fractal *fractal, int x, int y)
 {
-	t_graph	*graph;
+	t_graph		*graph;
 	t_ldouble	offset_x;
 	t_ldouble	offset_y;
 
 	graph = &fractal->graph;
-	offset_x = remap2(WIDTH, graph->real, x) - graph->real[0];
-	offset_y = remap2(HEIGHT, graph->imag, y) - graph->imag[0];
+	offset_x = map_value(x, WIDTH, graph->real) - graph->real[0];
+	offset_y = map_value(y, HEIGHT, graph->imag) - graph->imag[0];
 	graph->real[0] += offset_x;
 	graph->real[1] += offset_x;
 	graph->imag[0] += offset_y;
@@ -31,15 +31,15 @@ int	fractal_move(t_fractal *fractal, int x, int y)
 int	fractal_zoom(t_fractal *fractal, int x, int y, t_ldouble zoom)
 {
 	t_graph	*graph;
-	t_ldouble	sx;
-	t_ldouble	sy;
+	t_ldouble	cx;
+	t_ldouble	cy;
 
 	graph = &fractal->graph;
-	sx = remap2(WIDTH, graph->real, x);
-	sy = remap2(HEIGHT, graph->imag, y);
-	graph->real[0] = sx - (sx - graph->real[0]) * zoom;
-	graph->real[1] = sx + (graph->real[1] - sx) * zoom;
-	graph->imag[0] = sy - (sy - graph->imag[0]) * zoom;
-	graph->imag[1] = sy + (graph->imag[1] - sy) * zoom;
+	cx = map_value(x, WIDTH, graph->real);
+	cy = map_value(y, HEIGHT, graph->imag);
+	graph->real[0] = cx - (cx - graph->real[0]) * zoom;
+	graph->real[1] = cx + (graph->real[1] - cx) * zoom;
+	graph->imag[0] = cy - (cy - graph->imag[0]) * zoom;
+	graph->imag[1] = cy + (graph->imag[1] - cy) * zoom;
 	return (1);
 }

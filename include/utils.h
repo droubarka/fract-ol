@@ -14,11 +14,32 @@
 # define UTILS_H
 
 # include <stddef.h>
+# include <stdlib.h>
+# include <unistd.h>
 
+typedef long double			t_ldouble;
+typedef struct s_complex	t_complex;
+
+struct s_complex
+{
+	t_ldouble	real;
+	t_ldouble	imag;
+};
+
+/* libc */
+int	ft_isdigit(int c);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
-long double	remap(long double *old, long double *new, long double x);
-long double	remap2(long double size, long double *new, long double x);
 
 size_t ft_strlen(const char *s);
+
+long double	ft_strtold(const char *str, char **endptr);
+
+/* other */
+void	error(const char *errmsg);
+void	usage_error(int nargs);
+
+int	init_julia_params(t_complex *julia_params, char **av);
+
+t_ldouble	map_value(t_ldouble x, t_ldouble size, t_ldouble *to);
 
 #endif

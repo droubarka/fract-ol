@@ -107,3 +107,4 @@ int	tricorn(char *title, t_complex *c)
 	fractal_loop(fractal);
 	return (1);
 }
+

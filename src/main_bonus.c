@@ -18,7 +18,7 @@ static int	usage(void)
 
 	usage_msg = \
 	"Usage: ./fractol mandelbrot\n" \
-	"   Or: ./fractol julia <real> <imag>\n";
+	"   Or: ./fractol julia <real> <imag>\n" \
 	"   Or: ./fractol x\n";
 	write(2, usage_msg, ft_strlen(usage_msg));
 	return (1);
@@ -28,21 +28,32 @@ int	main(int argc, char **argv)
 {
 	t_complex	julia_params;
 
-	if (argc == 2 && !ft_strncmp(argv[1], "mandelbrot", 11))
+	if (argc == 2)
 	{
-		mandelbrot(argv[1]);
+		if (!ft_strncmp(argv[1], "-m", 3)
+			|| !ft_strncmp(argv[1], "mandelbrot", 11))
+		{
+			return (mandelbrot("Fractal: Mandelbrot"));
+		}
+		if (!ft_strncmp(argv[1], "-x", 3)
+			|| !ft_strncmp(argv[1], "x", 2))
+		{
+			return (-1); //? (x("Fractal: X"));
+		}
+		if (!ft_strncmp(argv[1], "--help", 7))
+		{
+			usage();
+			return (EXIT_SUCCESS);
+		}
 	}
-	else if (argc == 4 && !ft_strncmp(argv[1], "julia", 6))
+	else if (argc == 4)
 	{
-//		julia_params.real = ft_atof(argv[2]);
-//		julia_params.imag = ft_atof(argv[3]);
-
-		julia(argv[1], &julia_params);
+		if (!ft_strncmp(argv[1], "-j", 3)
+			|| !ft_strncmp(argv[1], "julia", 6))
+		{
+			init_julia_params(&julia_params, argv + 2);
+			return (julia("Fractal: Julia", &julia_params));
+		}
 	}
-	else
-	{
-		usage();
-		return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
+	usage_error(argc);
 }

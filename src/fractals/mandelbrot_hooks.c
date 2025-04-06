@@ -123,3 +123,4 @@ int	mandelbrot_mouse(int keysym, int x, int y, t_fractal *fractal)
 	mandelbrot_graph(fractal);
 	return (1);
 }
+

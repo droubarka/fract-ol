@@ -117,3 +117,4 @@ int	tricorn_mouse(int keysym, int x, int y, t_fractal *fractal)
 	}
 	return (1);
 }
+

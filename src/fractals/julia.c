@@ -100,7 +100,8 @@ int	julia(char *title, t_complex *c)
 	fractal->graph.color = 0;
 	fractal->graph.c = c;
 	julia_graph(fractal);
-	fractal_hook(fractal, julia_key, julia_mouse, fractal_xclose);
+	fractal_hook(fractal, julia_keyboard, julia_mouse);
 	fractal_loop(fractal);
 	return (1);
 }
+
