@@ -36,7 +36,7 @@ int	main(int argc, char **argv)
 			return (mandelbrot("Fractal: Mandelbrot"));
 		}
 		if (!ft_strncmp(argv[1], "-t", 3)
-			|| !ft_strncmp(argv[1], "tricorn", 2))
+			|| !ft_strncmp(argv[1], "tricorn", 8))
 		{
 			return (tricorn("Fractal: Tricorn"));
 		}

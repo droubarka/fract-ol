@@ -15,7 +15,7 @@ MAKEFLAGS += --no-builtin-rules
 SRC_DIR = src
 OBJ_DIR = obj
 INC_DIR = include
-LIB_DIR = ~/goinfre/usr/include/minilibx-linux
+LIB_DIR = /usr/include/minilibx-linux
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -I $(INC_DIR) -I $(LIB_DIR)
@@ -61,7 +61,11 @@ BONUS_SRCS = $(SRC_FILES) $(SRC_DIR)/main_bonus.c $(FRACTALS_DIR)/tricorn.c
 MANDATORY_OBJS = $(patsubst src/%.c, $(OBJ_DIR)/%.o, $(MANDATORY_SRCS))
 BONUS_OBJS = $(patsubst src/%.c, $(OBJ_DIR)/%.o, $(BONUS_SRCS))
 
-PREBUILD = $(OBJ_DIR) $(OBJ_DIR)/fractals $(OBJ_DIR)/utils $(OBJ_DIR)/utils/libc
+PREBUILD = \
+	$(OBJ_DIR) \
+	$(OBJ_DIR)/$(FRACTALS_DIR) \
+	$(OBJ_DIR)/$(UTILS_DIR) \
+	$(OBJ_DIR)/$(UTILS_LIBC_DIR)
 $(PREBUILD):
 	@mkdir -v -p $@
 
@@ -76,7 +80,7 @@ $(SYMB_LINKS):
 	fi
 
 .DEFAULT_GOAL = all
-.PHONY: clean $(SYMB_LINKS)
+.PHONY: $(SYMB_LINKS) clean
 
 all: $(NAME_MANDATORY)
 

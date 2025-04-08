@@ -3,3 +3,5 @@ limits and EFP
 hook's mask
 
 usage -m | -j
+makefile
+include fractal.h

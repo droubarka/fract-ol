@@ -15,13 +15,15 @@
 int	fractal_draw(t_fractal *fractal, int x, int y, unsigned int (*get_iter)())
 {
 	t_data			*data;
+	unsigned int	color;
 	unsigned int	iterations;
 	size_t			offset;
 
-	data = &fractal->graph.data;
 	iterations = get_iter(fractal);
+	color = fractal_color(fractal, iterations);
+	data = &fractal->graph.data;
 	offset = (y * data->size_line + x * (data->bpp / 8));
-	*((unsigned int *) (data->ptr + offset)) = fractal_color(fractal, iterations);
+	*((unsigned int *) (data->ptr + offset)) = color;
 	return (1);
 }
 
