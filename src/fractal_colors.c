@@ -177,17 +177,17 @@ int	xxxxxxxxxxxxxget_color(t_fractal *fractal, int iterations)
 
 
 
-int	get_color(t_fractal *fractal, int iterations)
+int	fractal_color(t_fractal *fractal, unsigned int iterations)
 {
 	unsigned char r;
 	unsigned char g;
 	unsigned char b;
 	double	t;
 
-	if (iterations == fractal->graph.iterations)
+	if (iterations == fractal->graph.max_iterations)
 		return (0x0);
 
-	t = ((double) iterations + fractal->graph.color) / fractal->graph.iterations;
+	t = ((double) iterations + fractal->graph.color) / fractal->graph.max_iterations;
 
 	r = (unsigned char) (9 * (1 - t) * t * t * t * 255);
 	g = (unsigned char) (15 * (1 - t) * (1 - t) * t * t * 255);

@@ -27,33 +27,31 @@ NAME_BONUS = .fractal_bonus
 
 FRACTALS_DIR = $(SRC_DIR)/fractals
 FRACTALS_FILES = \
-	$(FRACTALS_DIR)/julia.c \
-	$(FRACTALS_DIR)/julia_hooks.c \
-	$(FRACTALS_DIR)/mandelbrot.c \
-	$(FRACTALS_DIR)/mandelbrot_hooks.c
+	$(FRACTALS_DIR)/mandelbrot.c
 
 UTILS_DIR = $(SRC_DIR)/utils
+UTILS_LIBC_DIR = $(UTILS_DIR)/libc
 UTILS_FILES = \
-	$(UTILS_DIR)/ft_isdigit.c \
-	$(UTILS_DIR)/ft_strlen.c \
-	$(UTILS_DIR)/ft_strncmp.c \
-	$(UTILS_DIR)/ft_strtold.c \
-	$(UTILS_DIR)/remap.c
+	$(UTILS_DIR)/error.c \
+	$(UTILS_DIR)/init_julia_params.c \
+	$(UTILS_LIBC_DIR)/ft_isdigit.c \
+	$(UTILS_LIBC_DIR)/ft_strlen.c \
+	$(UTILS_LIBC_DIR)/ft_strncmp.c \
+	$(UTILS_LIBC_DIR)/ft_strtold.c \
+	$(UTILS_DIR)/map_value.c
 
 SRC_FILES = \
 	$(SRC_DIR)/fractal_colors.c \
+	$(SRC_DIR)/fractal_destroy.c \
+	$(SRC_DIR)/fractal_hooks.c \
 	$(SRC_DIR)/fractal_init.c \
-	$(SRC_DIR)/fractal_loop.c \
-	$(SRC_DIR)/fractal_zoom.c \
-	$(SRC_DIR)/error.c \
-	$(SRC_DIR)/init_julia_params.c \
+	$(SRC_DIR)/fractal_runtime.c \
 	$(FRACTALS_FILES) \
+	$(SRC_DIR)/fractal_transform.c \
 	$(UTILS_FILES)
 
 INC_FILES = \
 	$(INC_DIR)/fractal.h \
-	$(INC_DIR)/julia.h \
-	$(INC_DIR)/mandelbrot.h \
 	$(INC_DIR)/utils.h
 
 MANDATORY_SRCS = $(SRC_FILES) $(SRC_DIR)/main.c
@@ -62,7 +60,7 @@ BONUS_SRCS = $(SRC_FILES) $(SRC_DIR)/main_bonus.c
 MANDATORY_OBJS = $(patsubst src/%.c, $(OBJ_DIR)/%.o, $(MANDATORY_SRCS))
 BONUS_OBJS = $(patsubst src/%.c, $(OBJ_DIR)/%.o, $(BONUS_SRCS))
 
-PREBUILD = $(OBJ_DIR) $(OBJ_DIR)/fractals $(OBJ_DIR)/utils
+PREBUILD = $(OBJ_DIR) $(OBJ_DIR)/fractals $(OBJ_DIR)/utils $(OBJ_DIR)/utils/libc
 $(PREBUILD):
 	@mkdir -v -p $@
 

@@ -17,9 +17,9 @@ int	fractal_hook(t_fractal *fractal, int (*keyboard)(), int (*mouse)())
 	t_mlx	*mlx;
 
 	mlx = &fractal->mlx;
-	mlx_mouse_hook(mlx->win_ptr, &mouse, fractal);
-	mlx_hook(mlx->win_ptr, 2, 1, &keyboard, fractal);
-	mlx_hook(mlx->win_ptr, 17, 0, &fractal_close, fractal);
+	mlx_mouse_hook(mlx->win_ptr, mouse, fractal);
+	mlx_hook(mlx->win_ptr, 2, 1, keyboard, fractal);
+	mlx_hook(mlx->win_ptr, 17, 0, fractal_close, fractal);
 	return (1);
 }
 

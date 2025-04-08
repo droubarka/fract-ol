@@ -40,6 +40,6 @@ void	usage_error(int nargs);
 
 int	init_julia_params(t_complex *julia_params, char **av);
 
-t_ldouble	map_value(t_ldouble x, t_ldouble size, t_ldouble *to);
+t_ldouble	map_value(t_ldouble value, t_ldouble old_range, t_ldouble *to);
 
 #endif

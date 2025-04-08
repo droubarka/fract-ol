@@ -13,13 +13,25 @@
 #include "utils.h"
 
 /*
-t_ldouble	map_value(t_ldouble x, t_ldouble *from, t_ldouble *to)
+t_ldouble	map_value(t_ldouble value, t_ldouble *from, t_ldouble *to)
 {
-	return (to[0] + (x - from[0]) * (to[1] - to[0]) / (from[1] - from[0]));
+	t_ldouble	old_range;
+	t_ldouble	new_range;
+	t_ldouble	new_value;
+
+	old_range = from[1] - from[0];
+	new_range = to[1] - to[0];
+	new_value = ((value - from[0]) * new_range) / old_range + to[0];
+	return (new_value);
 }
 */
 
-t_ldouble	map_value(t_ldouble x, t_ldouble size, t_ldouble *to)
+t_ldouble	map_value(t_ldouble value, t_ldouble old_range, t_ldouble *to)
 {
-	return (to[0] + x * (to[1] - to[0]) / size);
+	t_ldouble	new_range;
+	t_ldouble	new_value;
+
+	new_range = to[1] - to[0];
+	new_value = (value * new_range) / old_range + to[0];
+	return (new_value);
 }

@@ -46,7 +46,7 @@ int	main(int argc, char **argv)
 			|| !ft_strncmp(argv[1], "julia", 6))
 		{
 			init_julia_params(&julia_params, argv + 2);
-			return (julia("Fractal: Julia", &julia_params));
+//			return (julia("Fractal: Julia", &julia_params));
 		}
 	}
 	usage_error(argc);
