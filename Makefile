@@ -15,7 +15,7 @@ MAKEFLAGS += --no-builtin-rules
 SRC_DIR = src
 OBJ_DIR = obj
 INC_DIR = include
-LIB_DIR = /usr/include/minilibx-linux
+LIB_DIR = ~/goinfre/usr/include/minilibx-linux
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -I $(INC_DIR) -I $(LIB_DIR)
@@ -27,7 +27,8 @@ NAME_BONUS = .fractal_bonus
 
 FRACTALS_DIR = $(SRC_DIR)/fractals
 FRACTALS_FILES = \
-	$(FRACTALS_DIR)/mandelbrot.c
+	$(FRACTALS_DIR)/mandelbrot.c \
+	$(FRACTALS_DIR)/julia.c
 
 UTILS_DIR = $(SRC_DIR)/utils
 UTILS_LIBC_DIR = $(UTILS_DIR)/libc
@@ -55,7 +56,7 @@ INC_FILES = \
 	$(INC_DIR)/utils.h
 
 MANDATORY_SRCS = $(SRC_FILES) $(SRC_DIR)/main.c
-BONUS_SRCS = $(SRC_FILES) $(SRC_DIR)/main_bonus.c
+BONUS_SRCS = $(SRC_FILES) $(SRC_DIR)/main_bonus.c $(FRACTALS_DIR)/tricorn.c
 
 MANDATORY_OBJS = $(patsubst src/%.c, $(OBJ_DIR)/%.o, $(MANDATORY_SRCS))
 BONUS_OBJS = $(patsubst src/%.c, $(OBJ_DIR)/%.o, $(BONUS_SRCS))

@@ -14,23 +14,25 @@
 
 static int	adjust_iterations(int keysym, t_fractal *fractal)
 {
+	t_graph			*graph;
 	unsigned int	iteration_step;
 
+	graph = &fractal->graph;
 	iteration_step = ITERATION_STEP;
 	if (keysym == KEY_PLUS)
 	{
-		if (fractal->graph.max_iterations <= UINT_MAX - iteration_step)
+		if (graph->max_iterations <= UINT_MAX - iteration_step)
 		{
-			fractal->graph.max_iterations += iteration_step;
+			graph->max_iterations += iteration_step;
 			return (1);
 		}
 	}
 	else if (keysym == KEY_MINUS)
 	{
-		if ((iteration_step <= fractal->graph.max_iterations)
-			&& (ITERATION_MIN <= fractal->graph.max_iterations - iteration_step))
+		if ((iteration_step <= graph->max_iterations)
+			&& (ITERATION_MIN <= graph->max_iterations - iteration_step))
 		{
-			fractal->graph.max_iterations -= iteration_step;
+			graph->max_iterations -= iteration_step;
 			return (1);
 		}
 	}
@@ -80,11 +82,14 @@ int	fractal_keyboard(int keysym, t_fractal *fractal)
 			{
 				fractal_close(fractal);
 			}
-			if (keysym != XK_r)
+			if (keysym != XK_r && keysym != XK_c)
 			{
 				return (0);
 			}
-			reset_params(fractal);
+			if (keysym == XK_c)
+				fractal->graph.color += 1;
+			else
+				reset_params(fractal);
 		}
 	}
 	fractal->graph.render(fractal);
@@ -100,7 +105,7 @@ int	fractal_mouse(int keysym, int x, int y, t_fractal *fractal)
 	}
 	else if (keysym == Button5)
 	{
-		fractal_zoom(fractal, x, (HEIGHT - 1) - y, 1.0);
+		fractal_zoom(fractal, x, (HEIGHT - 1) - y, 1.1);
 		fractal->graph.render(fractal);
 	}
 	return (1);

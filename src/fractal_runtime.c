@@ -12,6 +12,19 @@
 
 #include "fractal.h"
 
+int	fractal_draw(t_fractal *fractal, int x, int y, unsigned int (*get_iter)())
+{
+	t_data			*data;
+	unsigned int	iterations;
+	size_t			offset;
+
+	data = &fractal->graph.data;
+	iterations = get_iter(fractal);
+	offset = (y * data->size_line + x * (data->bpp / 8));
+	*((unsigned int *) (data->ptr + offset)) = fractal_color(fractal, iterations);
+	return (1);
+}
+
 int	fractal_hook(t_fractal *fractal, int (*keyboard)(), int (*mouse)())
 {
 	t_mlx	*mlx;
@@ -23,13 +36,13 @@ int	fractal_hook(t_fractal *fractal, int (*keyboard)(), int (*mouse)())
 	return (1);
 }
 
-int fractal_update(t_fractal *fractal)
+int	fractal_update(t_fractal *fractal)
 {
-    t_mlx   *mlx;
+	t_mlx	*mlx;
 
-    mlx = &fractal->mlx;
-    mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
-    return (1);
+	mlx = &fractal->mlx;
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
+	return (1);
 }
 
 int	fractal_loop(t_fractal *fractal)

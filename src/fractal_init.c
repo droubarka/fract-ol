@@ -36,7 +36,7 @@ t_fractal	*fractal_init(int size_x, int size_y, char *title)
 		return (NULL);
 	}
 	data = &fractal->graph.data;
-	data->ptr = (int *) mlx_get_data_addr(mlx->img_ptr,
-		&data->bpp, &data->size_line, &data->endian);
+	data->ptr = mlx_get_data_addr(mlx->img_ptr,
+			&data->bpp, &data->size_line, &data->endian);
 	return (fractal);
 }

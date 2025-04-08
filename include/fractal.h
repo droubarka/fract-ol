@@ -52,10 +52,10 @@ typedef struct s_data		t_data;
 
 struct s_data					// done
 {
-	int	*ptr;					// done
-	int	bpp;					// done
-	int	size_line;				// done
-	int	endian;					// done
+	char	*ptr;					// done
+	int		bpp;					// done
+	int		size_line;				// done
+	int		endian;					// done
 };
 
 struct s_graph
@@ -96,12 +96,14 @@ int	fractal_move(t_fractal *fractal, int offset_x, int offset_y);
 int	fractal_zoom(t_fractal *fractal, int x, int y, t_ldouble zoom);
 
 /* /src/fractal_runtime.c */
+int	fractal_draw(t_fractal *fractal, int x, int y, unsigned int (*get_iter)());
 int	fractal_hook(t_fractal *fractal, int (*keyboard)(), int (*mouse)());
 int fractal_update(t_fractal *fractal);
 int	fractal_loop(t_fractal *fractal);
 int	fractal_close(t_fractal *fractal);
 
 /* /src/fractal_colors.c */
+unsigned int fractal_color(t_fractal *fractal, unsigned int iterations);
 
 /* /src/fractal_hooks.c */
 int	fractal_keyboard(int keysym, t_fractal *fractal);
@@ -112,12 +114,13 @@ int	mandelbrot(char *title);
 int	mandelbrot_render(t_fractal *fractal);
 
 /* /src/fractals/julia.c */
-//int	julia(char *title, t_complex *c);
-//int	julia_render(t_fractal *fractal);
+int	julia(char *title, t_complex *c);
+int	julia_render(t_fractal *fractal);
 
-/* /src/fractals/x.c */
+/* /src/fractals/tricorn.c */
+int	tricorn(char *title);
+int	tricorn_render(t_fractal *fractal);
 
 /**/
-int get_color(t_fractal *fractal, unsigned int iterations);
 
 #endif

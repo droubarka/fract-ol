@@ -12,7 +12,7 @@
 
 #include "fractal.h"
 
-static int	mandelbrot_compute_iterations(t_fractal *fractal)
+static unsigned int	mandelbrot_get_iter(t_fractal *fractal)
 {
 	unsigned int	iterations;
 	t_complex		zx;
@@ -21,7 +21,6 @@ static int	mandelbrot_compute_iterations(t_fractal *fractal)
 
 	z0 = &fractal->graph.z0;
 	c = &fractal->graph.c;
-
 	iterations = 0;
 	while (iterations < fractal->graph.max_iterations)
 	{
@@ -37,19 +36,6 @@ static int	mandelbrot_compute_iterations(t_fractal *fractal)
 	return (iterations);
 }
 
-static int	mandelbrot_draw(t_fractal *fractal, int x, int y)
-{
-	int		iterations;
-	int		offset;
-	t_data	*data;
-
-	data = &fractal->graph.data;
-	iterations = mandelbrot_compute_iterations(fractal);
-	offset = (y * data->size_line + x * (data->bpp / 8)) / 4; //?
-	data->ptr[offset] = get_color(fractal, iterations); //?
-	return (1);
-}
-
 int	mandelbrot_render(t_fractal *fractal)
 {
 	t_graph	*graph;
@@ -57,19 +43,19 @@ int	mandelbrot_render(t_fractal *fractal)
 	int		y;
 
 	graph = &fractal->graph;
-	y = HEIGHT - 1;
-	while (0 <= y)
+	y = 0;
+	while (y < HEIGHT)
 	{
 		x = 0;
 	    while (x < WIDTH)
         {
 			graph->z0 = (t_complex) {0.0, 0.0};
 			graph->c.real = map_value(x, WIDTH - 1, graph->real_range);
-			graph->c.imag = map_value(y, HEIGHT - 1, graph->imag_range);
-			mandelbrot_draw(fractal, x, y);
+			graph->c.imag = map_value(HEIGHT - 1 - y, HEIGHT - 1, graph->imag_range);
+			fractal_draw(fractal, x, y, mandelbrot_get_iter);
 			x++;
         }
-		y--;
+		y++;
     }
 	fractal_update(fractal);
 	return (1);
@@ -87,8 +73,8 @@ int	mandelbrot(char *title)
 		fractal->graph.real_range[1] = DEF_REAL_RANGE_MAX;
 		fractal->graph.imag_range[0] = DEF_IMAG_RANGE_MIN;
 		fractal->graph.imag_range[1] = DEF_IMAG_RANGE_MAX;
-		fractal->graph.max_iterations = 43; //?
-		fractal->graph.color = 0; //?
+		fractal->graph.max_iterations = 32;
+		fractal->graph.color = 1;
 		fractal->graph.render(fractal);
 		fractal_hook(fractal, fractal_keyboard, fractal_mouse);
 		fractal_loop(fractal);

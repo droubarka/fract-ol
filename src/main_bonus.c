@@ -19,7 +19,7 @@ static int	usage(void)
 	usage_msg = \
 	"Usage: ./fractol mandelbrot\n" \
 	"   Or: ./fractol julia <real> <imag>\n" \
-	"   Or: ./fractol x\n";
+	"   Or: ./fractol tricorn\n";
 	write(2, usage_msg, ft_strlen(usage_msg));
 	return (1);
 }
@@ -35,10 +35,10 @@ int	main(int argc, char **argv)
 		{
 			return (mandelbrot("Fractal: Mandelbrot"));
 		}
-		if (!ft_strncmp(argv[1], "-x", 3)
-			|| !ft_strncmp(argv[1], "x", 2))
+		if (!ft_strncmp(argv[1], "-t", 3)
+			|| !ft_strncmp(argv[1], "tricorn", 2))
 		{
-			return (-1); //? (x("Fractal: X"));
+			return (tricorn("Fractal: Tricorn"));
 		}
 		if (!ft_strncmp(argv[1], "--help", 7))
 		{

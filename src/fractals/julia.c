@@ -1,80 +1,57 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   julia.c                                            :+:      :+:    :+:   */
+/*   mandelbrot.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mait-oub <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 08:12:03 by mait-oub          #+#    #+#             */
-/*   Updated: 2025/03/03 12:11:44 by mait-oub         ###   ########.fr       */
+/*   Updated: 2025/02/26 08:12:04 by mait-oub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "julia.h"
+#include "fractal.h"
 
-static int	julia_get_iterations(t_fractal *fractal, t_complex *z0)
+static unsigned int	julia_get_iter(t_fractal *fractal)
 {
-	int			iterations;
-	t_graph		*graph;
-	t_complex	zx;
+	unsigned int	iterations;
+	t_complex		zx;
+	t_complex		*z0;
+	t_complex		*c;
 
-	graph = &fractal->graph;
+	z0 = &fractal->graph.z0;
+	c = &fractal->graph.c;
 	iterations = 0;
-	while (iterations < graph->iterations)
+	while (iterations < fractal->graph.max_iterations)
 	{
-		zx.real = (z0->real * z0->real) - (z0->imag * z0->imag) + graph->c->real;
-		zx.imag = 2 * z0->real * z0->imag + graph->c->imag;
-		iterations++;
-		if (4 <= (zx.real * zx.real + zx.imag * zx.imag))
+		zx.real = (z0->real * z0->real) - (z0->imag * z0->imag) + c->real;
+		zx.imag = 2 * z0->real * z0->imag + c->imag;
+		if (4.0 <= (zx.real * zx.real + zx.imag * zx.imag))
 		{
-			return (iterations);
+			return (iterations + 1);
 		}
-		z0->real = zx.real;
-		z0->imag = zx.imag;
+		*z0 = zx;
+		iterations++;
 	}
 	return (iterations);
 }
 
-static int	julia_color(t_fractal *fractal, int iterations)
+int	julia_render(t_fractal *fractal)
 {
 	t_graph	*graph;
+	int		x;
+	int		y;
 
 	graph = &fractal->graph;
-	if (iterations == graph->iterations)
-	{
-		return (0);
-	}
-	return (get_color(fractal, iterations));
-}
-
-static int	julia_draw(t_fractal *fractal, t_complex *z0, int x, int y)
-{
-	int		iterations;
-	int		offset;
-	t_data	*data;
-
-	data = &fractal->graph.data;
-	iterations = julia_get_iterations(fractal, z0);
-	offset = (y * data->size_line + x * (data->depth / 8)) / 4;
-	data->ptr[offset] = julia_color(fractal, iterations);
-	return (1);
-}
-
-int	julia_graph(t_fractal *fractal)
-{
-	int			x;
-	int			y;
-	t_complex	z0;
-
 	y = 0;
-    while (y < HEIGHT)
-    {
+	while (y < HEIGHT)
+	{
 		x = 0;
 	    while (x < WIDTH)
         {
-			z0.real = remap2(WIDTH, fractal->graph.real, x);
-			z0.imag = remap2(HEIGHT, fractal->graph.imag, HEIGHT - y - 1);
-			julia_draw(fractal, &z0, x, y);
+			graph->z0.real = map_value(x, WIDTH - 1, graph->real_range);
+			graph->z0.imag = map_value(HEIGHT - 1 - y, HEIGHT - 1, graph->imag_range);
+			fractal_draw(fractal, x, y, julia_get_iter);
 			x++;
         }
 		y++;
@@ -88,20 +65,19 @@ int	julia(char *title, t_complex *c)
 	t_fractal	*fractal;
 
 	fractal = fractal_init(WIDTH, HEIGHT, title);
-	if (fractal == NULL)
+	if (fractal != NULL)
 	{
-		return (0);
+		fractal->graph.render = julia_render;
+		fractal->graph.real_range[0] = DEF_REAL_RANGE_MIN;
+		fractal->graph.real_range[1] = DEF_REAL_RANGE_MAX;
+		fractal->graph.imag_range[0] = DEF_IMAG_RANGE_MIN;
+		fractal->graph.imag_range[1] = DEF_IMAG_RANGE_MAX;
+		fractal->graph.max_iterations = 32;
+		fractal->graph.color = 0;
+		fractal->graph.c = *c;
+		fractal->graph.render(fractal);
+		fractal_hook(fractal, fractal_keyboard, fractal_mouse);
+		fractal_loop(fractal);
 	}
-	fractal->graph.real[0] = -2;
-	fractal->graph.real[1] = +2;
-	fractal->graph.imag[0] = -2;
-	fractal->graph.imag[1] = +2;
-	fractal->graph.iterations = 30;
-	fractal->graph.color = 0;
-	fractal->graph.c = c;
-	julia_graph(fractal);
-	fractal_hook(fractal, julia_keyboard, julia_mouse);
-	fractal_loop(fractal);
-	return (1);
+	return (EXIT_FAILURE);
 }
-
