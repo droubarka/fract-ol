@@ -16,15 +16,11 @@
 # include "mlx.h"
 # include "utils.h"
 
-# include <math.h>
 # include <limits.h>
 # include <stdlib.h>
 # include <X11/keysym.h>
 # include <X11/X.h>
 # include <unistd.h>
-
-# include <stdio.h> //?
-
 
 # define WIDTH  650
 # define HEIGHT 650
