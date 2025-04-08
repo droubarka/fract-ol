@@ -63,9 +63,9 @@ BONUS_OBJS = $(patsubst src/%.c, $(OBJ_DIR)/%.o, $(BONUS_SRCS))
 
 PREBUILD = \
 	$(OBJ_DIR) \
-	$(OBJ_DIR)/$(FRACTALS_DIR) \
-	$(OBJ_DIR)/$(UTILS_DIR) \
-	$(OBJ_DIR)/$(UTILS_LIBC_DIR)
+	$(OBJ_DIR)/fractals \
+	$(OBJ_DIR)/utils \
+	$(OBJ_DIR)/utils/libc
 $(PREBUILD):
 	@mkdir -v -p $@
 
