@@ -39,6 +39,29 @@ static int	adjust_iterations(int keysym, t_fractal *fractal)
 	return (0);
 }
 
+static int	shift_view(int keysym, t_fractal *fractal)
+{
+	int	offset_x;
+	int	offset_y;
+	int	delta_px;
+
+	offset_x = 0;
+	offset_y = 0;
+	delta_px = VIEW_SHIFT_PX;
+	if (keysym == XK_Left)
+		offset_x = +delta_px;
+	else if (keysym == XK_Right)
+		offset_x = -delta_px;
+	else if (keysym == XK_Up)
+		offset_y = -delta_px;
+	else if (keysym == XK_Down)
+		offset_y = +delta_px;
+	else
+		return (0);
+	fractal_move(fractal, offset_x, offset_y);
+	return (1);
+}
+
 static int	reset_params(t_fractal *fractal)
 {
 	fractal->graph.real_range[0] = DEF_REAL_RANGE_MIN;
@@ -53,18 +76,21 @@ int	fractal_keyboard(int keysym, t_fractal *fractal)
 {
 	if (!adjust_iterations(keysym, fractal))
 	{
-		if (keysym == XK_Escape)
+		if (!shift_view(keysym, fractal))
 		{
-			fractal_close(fractal);
+			if (keysym == XK_Escape)
+			{
+				fractal_close(fractal);
+			}
+			if (keysym != XK_r && keysym != XK_c)
+			{
+				return (0);
+			}
+			if (keysym == XK_c)
+				fractal->graph.color += 1;
+			else
+				reset_params(fractal);
 		}
-		if (keysym != XK_r && keysym != XK_c)
-		{
-			return (0);
-		}
-		if (keysym == XK_c)
-			fractal->graph.color += 1;
-		else
-			reset_params(fractal);
 	}
 	fractal->graph.render(fractal);
 	return (1);
@@ -72,16 +98,14 @@ int	fractal_keyboard(int keysym, t_fractal *fractal)
 
 int	fractal_mouse(int keysym, int x, int y, t_fractal *fractal)
 {
-	(void) x;
-	(void) y;
 	if (keysym == Button4)
 	{
-		fractal_zoom(fractal, WIDTH / 2, HEIGHT / 2, 0.9);
+		fractal_zoom(fractal, x, (HEIGHT - 1) - y, 0.9);
 		fractal->graph.render(fractal);
 	}
 	else if (keysym == Button5)
 	{
-		fractal_zoom(fractal, WIDTH / 2, HEIGHT / 2, 1.1);
+		fractal_zoom(fractal, x, (HEIGHT - 1) - y, 1.1);
 		fractal->graph.render(fractal);
 	}
 	return (1);

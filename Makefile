@@ -44,7 +44,6 @@ UTILS_FILES = \
 SRC_FILES = \
 	$(SRC_DIR)/fractal_colors.c \
 	$(SRC_DIR)/fractal_destroy.c \
-	$(SRC_DIR)/fractal_hooks.c \
 	$(SRC_DIR)/fractal_init.c \
 	$(SRC_DIR)/fractal_runtime.c \
 	$(FRACTALS_FILES) \
@@ -55,8 +54,8 @@ INC_FILES = \
 	$(INC_DIR)/fractal.h \
 	$(INC_DIR)/utils.h
 
-MANDATORY_SRCS = $(SRC_FILES) $(SRC_DIR)/main.c
-BONUS_SRCS = $(SRC_FILES) $(SRC_DIR)/main_bonus.c $(FRACTALS_DIR)/tricorn.c
+MANDATORY_SRCS = $(SRC_FILES) $(SRC_DIR)/main.c $(SRC_DIR)/fractal_hooks.c
+BONUS_SRCS = $(SRC_FILES) $(SRC_DIR)/main_bonus.c $(SRC_DIR)/fractal_hooks_bonus.c $(FRACTALS_DIR)/tricorn.c
 
 MANDATORY_OBJS = $(patsubst src/%.c, $(OBJ_DIR)/%.o, $(MANDATORY_SRCS))
 BONUS_OBJS = $(patsubst src/%.c, $(OBJ_DIR)/%.o, $(BONUS_SRCS))
@@ -72,9 +71,9 @@ $(PREBUILD):
 SYMB_LINKS = MANDATORY BONUS
 $(SYMB_LINKS):
 	@if [ "$(realpath $(NAME))" = "" ]; then \
-		ln -svf $(NAME_$@) $(NAME); \
+		ln -snvf $(NAME_$@) $(NAME); \
 	elif [ "$(realpath $(NAME_$@))" != "$(realpath $(NAME))" ]; then \
-		ln -svf $(NAME_$@) $(NAME); \
+		ln -snvf $(NAME_$@) $(NAME); \
 	else \
 		echo "make: '$(NAME)' is up to date."; \
 	fi

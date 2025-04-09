@@ -17,9 +17,9 @@ static int	usage(void)
 	const char	*usage_msg;
 
 	usage_msg = \
-	"Usage: ./fractol mandelbrot\n" \
-	"   Or: ./fractol julia <real> <imag>\n" \
-	"   Or: ./fractol tricorn\n";
+	"Usage: ./fractol -m | mandelbrot\n" \
+	"   Or: ./fractol -j | julia <real> <imag>\n" \
+	"   Or: ./fractol -t | tricorn\n";
 	write(2, usage_msg, ft_strlen(usage_msg));
 	return (1);
 }
