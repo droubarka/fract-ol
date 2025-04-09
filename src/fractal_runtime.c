@@ -23,7 +23,7 @@ int	fractal_draw(t_fractal *fractal, int x, int y, unsigned int (*get_iter)())
 	color = fractal_color(fractal, iterations);
 	data = &fractal->graph.data;
 	offset = (y * data->size_line + x * (data->bpp / 8));
-	*((unsigned int *) (data->ptr + offset)) = color;
+	*((unsigned int *)(data->ptr + offset)) = color;
 	return (1);
 }
 

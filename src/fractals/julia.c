@@ -47,15 +47,16 @@ int	julia_render(t_fractal *fractal)
 	while (y < HEIGHT)
 	{
 		x = 0;
-	    while (x < WIDTH)
-        {
+		while (x < WIDTH)
+		{
 			graph->z0.real = map_value(x, WIDTH - 1, graph->real_range);
-			graph->z0.imag = map_value(HEIGHT - 1 - y, HEIGHT - 1, graph->imag_range);
+			graph->z0.imag = \
+			map_value(HEIGHT - 1 - y, HEIGHT - 1, graph->imag_range);
 			fractal_draw(fractal, x, y, julia_get_iter);
 			x++;
-        }
+		}
 		y++;
-    }
+	}
 	fractal_update(fractal);
 	return (1);
 }

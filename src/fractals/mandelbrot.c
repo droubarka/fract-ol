@@ -47,16 +47,17 @@ int	mandelbrot_render(t_fractal *fractal)
 	while (y < HEIGHT)
 	{
 		x = 0;
-	    while (x < WIDTH)
-        {
-			graph->z0 = (t_complex) {0.0, 0.0};
+		while (x < WIDTH)
+		{
+			graph->z0 = (t_complex){0.0, 0.0};
 			graph->c.real = map_value(x, WIDTH - 1, graph->real_range);
-			graph->c.imag = map_value(HEIGHT - 1 - y, HEIGHT - 1, graph->imag_range);
+			graph->c.imag = \
+			map_value(HEIGHT - 1 - y, HEIGHT - 1, graph->imag_range);
 			fractal_draw(fractal, x, y, mandelbrot_get_iter);
 			x++;
-        }
+		}
 		y++;
-    }
+	}
 	fractal_update(fractal);
 	return (1);
 }

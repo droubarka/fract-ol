@@ -14,97 +14,84 @@
 
 static unsigned int	scheme_0(t_fractal *fractal, unsigned int iters)
 {
-	unsigned char r;
-	unsigned char g;
-	unsigned char b;
-	double	t;
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+	t_ldouble		t;
 
-	if (iters == fractal->graph.max_iterations)
-		return (0x0);
-
-	t = ((double) iters) / fractal->graph.max_iterations;
-
-	r = (unsigned char) (9 * (1 - t) * t * t * t * 255);
-	g = (unsigned char) (15 * (1 - t) * (1 - t) * t * t * 255);
-	b = (unsigned char) (8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255);
-
+	t = ((t_ldouble) iters) / fractal->graph.max_iterations;
+	r = (unsigned char)(9 * (1 - t) * t * t * t * 255);
+	g = (unsigned char)(15 * (1 - t) * (1 - t) * t * t * 255);
+	b = (unsigned char)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255);
 	return (r << 16 | g << 8 | b);
 }
 
 static unsigned int	scheme_1(t_fractal *fractal, unsigned int iters)
 {
-	unsigned char r;
-	unsigned char g;
-	unsigned char b;
-	double	t;
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+	t_ldouble		t;
 
-	if (iters == fractal->graph.max_iterations)
-		return (0x0);
-
-	t = ((double) iters) / fractal->graph.max_iterations;
-
-	g = (unsigned char) (9 * (1 - t) * t * t * t * 255);
-	r = (unsigned char) (15 * (1 - t) * (1 - t) * t * t * 255);
-	b = (unsigned char) (8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255);
-
+	t = ((t_ldouble) iters) / fractal->graph.max_iterations;
+	r = (unsigned char)(15 * (1 - t) * (1 - t) * t * t * 255);
+	g = (unsigned char)(9 * (1 - t) * t * t * t * 255);
+	b = (unsigned char)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255);
 	return (r << 16 | g << 8 | b);
 }
 
 static unsigned int	scheme_2(t_fractal *fractal, unsigned int iters)
 {
-	unsigned char r;
-	unsigned char g;
-	unsigned char b;
-	double	t;
-
-	if (iters == fractal->graph.max_iterations)
-		return (0x0);
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+	t_ldouble		t;
 
 	t = ((double) iters) / fractal->graph.max_iterations;
-
 	r = (unsigned char)(255 * (1.0 - t) * t * t * t + 255 * t);
 	g = (unsigned char)(150 * (1 - t) * (1 - t) * t * t);
 	b = (unsigned char)(40 * (1 - t) * (1 - t) * t);
-
 	return (r << 16 | g << 8 | b);
 }
-static unsigned int scheme_3(t_fractal *fractal, unsigned int iters)
+
+static unsigned int	scheme_3(t_fractal *fractal, unsigned int iters)
 {
-    unsigned char r;
-    unsigned char g;
-    unsigned char b;
-    double  t;
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+	t_ldouble		t;
 
-    if (iters == fractal->graph.max_iterations)
-        return (0x0);
-
-    t = ((double) iters) / fractal->graph.max_iterations;
-
-    g = (unsigned char)(255 * (1.0 - t) * t * t * t + 255 * t);
-    b = (unsigned char)(150 * (1 - t) * (1 - t) * t * t);
-    r = (unsigned char)(40 * (1 - t) * (1 - t) * t);
-
-    return (r << 16 | g << 8 | b);
+	t = ((t_ldouble) iters) / fractal->graph.max_iterations;
+	r = (unsigned char)(40 * (1 - t) * (1 - t) * t);
+	g = (unsigned char)(255 * (1.0 - t) * t * t * t + 255 * t);
+	b = (unsigned char)(150 * (1 - t) * (1 - t) * t * t);
+	return (r << 16 | g << 8 | b);
 }
 
 unsigned int	fractal_color(t_fractal *fractal, unsigned int iterations)
 {
+	unsigned int	color;
+
+	if (iterations == fractal->graph.max_iterations)
+	{
+		return (0x0);
+	}
 	fractal->graph.color %= 4;
 	if (fractal->graph.color == 0)
 	{
-		return scheme_0(fractal, iterations);
+		color = scheme_0(fractal, iterations);
 	}
 	else if (fractal->graph.color == 1)
 	{
-		return scheme_1(fractal, iterations);
+		color = scheme_1(fractal, iterations);
 	}
 	else if (fractal->graph.color == 2)
 	{
-		return scheme_2(fractal, iterations);
+		color = scheme_2(fractal, iterations);
 	}
 	else
 	{
-		return scheme_3(fractal, iterations);
+		color = scheme_3(fractal, iterations);
 	}
-	return -1;
+	return (color);
 }

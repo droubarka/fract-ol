@@ -39,83 +39,83 @@
 
 # define VIEW_SHIFT_PX 20
 
-typedef long double 		t_ldouble;
+typedef long double			t_ldouble;
 
 typedef struct s_fractal	t_fractal;
 typedef struct s_mlx		t_mlx;
 typedef struct s_graph		t_graph;
 typedef struct s_data		t_data;
 
-struct s_data					// done
+struct s_data
 {
-	char	*ptr;					// done
-	int		bpp;					// done
-	int		size_line;				// done
-	int		endian;					// done
+	char	*ptr;
+	int		bpp;
+	int		size_line;
+	int		endian;
 };
 
 struct s_graph
 {
 	int				(*render)(t_fractal *);
-	t_data			data;			// done
-	t_ldouble		real_range[2];	// done
-	t_ldouble		imag_range[2];	// done
-	unsigned int	max_iterations;	// done
-
+	t_data			data;
+	t_ldouble		real_range[2];
+	t_ldouble		imag_range[2];
+	unsigned int	max_iterations;
 	unsigned int	color;
-
-	t_complex	z0;					// done
-	t_complex	c;					// done
+	t_complex		z0;
+	t_complex		c;
 };
 
-struct s_mlx					// done
+struct s_mlx
 {
-	void	*mlx_ptr;			// done
-	void	*win_ptr;			// done
-	void	*img_ptr;			// done
+	void	*mlx_ptr;
+	void	*win_ptr;
+	void	*img_ptr;
 };
 
-struct s_fractal				// done
+struct s_fractal
 {
-	t_mlx	mlx;				// done
-	t_graph	graph;				// done
+	t_mlx	mlx;
+	t_graph	graph;
 };
 
 /* /src/fractal_init.c */
-t_fractal	*fractal_init(int size_x, int size_y, char *title);
+t_fractal		*fractal_init(int size_x, int size_y, char *title);
 
 /* /src/fractal_destroy.c */
-int	fractal_destroy(t_fractal *fractal);
+int				fractal_destroy(t_fractal *fractal);
 
 /* /src/fractal_transform.c */
-int	fractal_move(t_fractal *fractal, int offset_x, int offset_y);
-int	fractal_zoom(t_fractal *fractal, int x, int y, t_ldouble zoom);
+int				fractal_move(t_fractal *fractal, int offset_x, int offset_y);
+int				fractal_zoom(t_fractal *fractal, int x, int y, t_ldouble zoom);
 
 /* /src/fractal_runtime.c */
-int	fractal_draw(t_fractal *fractal, int x, int y, unsigned int (*get_iter)());
-int	fractal_hook(t_fractal *fractal, int (*keyboard)(), int (*mouse)());
-int fractal_update(t_fractal *fractal);
-int	fractal_loop(t_fractal *fractal);
-int	fractal_close(t_fractal *fractal);
+int				fractal_draw(t_fractal *fractal, \
+	int x, int y, unsigned int (*get_iter)());
+int				fractal_hook(t_fractal *fractal, \
+	int (*keyboard)(), int (*mouse)());
+int				fractal_update(t_fractal *fractal);
+int				fractal_loop(t_fractal *fractal);
+int				fractal_close(t_fractal *fractal);
 
 /* /src/fractal_colors.c */
-unsigned int fractal_color(t_fractal *fractal, unsigned int iterations);
+unsigned int	fractal_color(t_fractal *fractal, unsigned int iterations);
 
 /* /src/fractal_hooks.c */
-int	fractal_keyboard(int keysym, t_fractal *fractal);
-int	fractal_mouse(int keysym, int x, int y, t_fractal *fractal);
+int				fractal_keyboard(int keysym, t_fractal *fractal);
+int				fractal_mouse(int keysym, int x, int y, t_fractal *fractal);
 
 /* /src/fractals/mandelbrot.c */
-int	mandelbrot(char *title);
-int	mandelbrot_render(t_fractal *fractal);
+int				mandelbrot(char *title);
+int				mandelbrot_render(t_fractal *fractal);
 
 /* /src/fractals/julia.c */
-int	julia(char *title, t_complex *c);
-int	julia_render(t_fractal *fractal);
+int				julia(char *title, t_complex *c);
+int				julia_render(t_fractal *fractal);
 
 /* /src/fractals/tricorn.c */
-int	tricorn(char *title);
-int	tricorn_render(t_fractal *fractal);
+int				tricorn(char *title);
+int				tricorn_render(t_fractal *fractal);
 
 /**/
 

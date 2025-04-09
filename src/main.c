@@ -23,7 +23,7 @@ static int	usage(void)
 	return (1);
 }
 
-int	main(int argc, char **argv)
+int	main(int argc, char *argv[])
 {
 	t_complex	julia_params;
 

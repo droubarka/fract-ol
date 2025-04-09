@@ -24,36 +24,30 @@ static int	usage(void)
 	return (1);
 }
 
-int	main(int argc, char **argv)
+int	main(int ac, char *av[])
 {
 	t_complex	julia_params;
 
-	if (argc == 2)
+	if (ac == 2)
 	{
-		if (!ft_strncmp(argv[1], "-m", 3)
-			|| !ft_strncmp(argv[1], "mandelbrot", 11))
-		{
+		if (!ft_strncmp(av[1], "-m", 3)
+			|| !ft_strncmp(av[1], "mandelbrot", 11))
 			return (mandelbrot("Fractal: Mandelbrot"));
-		}
-		if (!ft_strncmp(argv[1], "-t", 3)
-			|| !ft_strncmp(argv[1], "tricorn", 8))
-		{
+		if (!ft_strncmp(av[1], "-t", 3) || !ft_strncmp(av[1], "tricorn", 8))
 			return (tricorn("Fractal: Tricorn"));
-		}
-		if (!ft_strncmp(argv[1], "--help", 7))
+		if (!ft_strncmp(av[1], "--help", 7))
 		{
 			usage();
 			return (EXIT_SUCCESS);
 		}
 	}
-	else if (argc == 4)
+	else if (ac == 4)
 	{
-		if (!ft_strncmp(argv[1], "-j", 3)
-			|| !ft_strncmp(argv[1], "julia", 6))
+		if (!ft_strncmp(av[1], "-j", 3) || !ft_strncmp(av[1], "julia", 6))
 		{
-			init_julia_params(&julia_params, argv + 2);
+			init_julia_params(&julia_params, av + 2);
 			return (julia("Fractal: Julia", &julia_params));
 		}
 	}
-	usage_error(argc);
+	usage_error(ac);
 }
