@@ -15,7 +15,7 @@ MAKEFLAGS += --no-builtin-rules
 SRC_DIR = src
 OBJ_DIR = obj
 INC_DIR = include
-LIB_DIR = ~/goinfre/usr/include/minilibx-linux
+LIB_DIR = /usr/include/minilibx-linux
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -I $(INC_DIR) -I $(LIB_DIR)
