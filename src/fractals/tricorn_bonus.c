@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   burningship.c                                      :+:      :+:    :+:   */
+/*   tricorn.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mait-oub <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -78,7 +78,7 @@ int	tricorn(char *title)
 		fractal->graph.color = 2;
 		fractal->graph.render(fractal);
 		fractal_hook(fractal, fractal_keyboard, fractal_mouse);
-		fractal_loop(fractal);
+		fractal_loop(fractal, NULL);
 	}
 	return (EXIT_FAILURE);
 }

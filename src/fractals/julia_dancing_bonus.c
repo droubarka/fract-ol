@@ -1,67 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   julia.c                                            :+:      :+:    :+:   */
+/*   julia_dancing_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mait-oub <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 08:12:03 by mait-oub          #+#    #+#             */
-/*   Updated: 2025/02/26 08:12:04 by mait-oub         ###   ########.fr       */
+/*   Updated: 2025/04/09 20:42:51 by mait-oub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractal.h"
 
-static unsigned int	julia_get_iter(t_fractal *fractal)
+static int	julia_dancing_loop(t_fractal *fractal)
 {
-	unsigned int	iterations;
-	t_complex		zx;
-	t_complex		*z0;
-	t_complex		*c;
+	static long double	a;
+	unsigned int		i;
 
-	z0 = &fractal->graph.z0;
-	c = &fractal->graph.c;
-	iterations = 0;
-	while (iterations < fractal->graph.max_iterations)
+	fractal->graph.c.real = .7885 * cosl(a);
+	fractal->graph.c.imag = .7885 * sinl(a);
+	if (2 * M_PI <= -a)
 	{
-		zx.real = (z0->real * z0->real) - (z0->imag * z0->imag) + c->real;
-		zx.imag = 2 * z0->real * z0->imag + c->imag;
-		if (4.0 <= (zx.real * zx.real + zx.imag * zx.imag))
-		{
-			return (iterations + 1);
-		}
-		*z0 = zx;
-		iterations++;
+		fractal->graph.color += 1;
+		fractal->graph.color %= 2;
+		a = 0;
 	}
-	return (iterations);
-}
-
-int	julia_render(t_fractal *fractal)
-{
-	t_graph	*graph;
-	int		x;
-	int		y;
-
-	graph = &fractal->graph;
-	y = 0;
-	while (y < HEIGHT)
+	fractal->graph.render(fractal);
+	i = 0;
+	while (i < 1 << 27)
 	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			graph->z0.real = map_value(x, WIDTH - 1, graph->real_range);
-			graph->z0.imag = \
-			map_value(HEIGHT - 1 - y, HEIGHT - 1, graph->imag_range);
-			fractal_draw(fractal, x, y, julia_get_iter);
-			x++;
-		}
-		y++;
+		i++;
 	}
-	fractal_update(fractal);
+	a -= .10;
 	return (1);
 }
 
-int	julia(char *title, t_complex *c)
+int	julia_dancing(char *title)
 {
 	t_fractal	*fractal;
 
@@ -75,10 +49,9 @@ int	julia(char *title, t_complex *c)
 		fractal->graph.imag_range[1] = DEF_IMAG_RANGE_MAX;
 		fractal->graph.max_iterations = 32;
 		fractal->graph.color = 0;
-		fractal->graph.c = *c;
-		fractal->graph.render(fractal);
+		fractal->graph.c = (t_complex){0, 0};
 		fractal_hook(fractal, fractal_keyboard, fractal_mouse);
-		fractal_loop(fractal, NULL);
+		fractal_loop(fractal, &julia_dancing_loop);
 	}
 	return (EXIT_FAILURE);
 }

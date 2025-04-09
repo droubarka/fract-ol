@@ -15,11 +15,11 @@ MAKEFLAGS += --no-builtin-rules
 SRC_DIR = src
 OBJ_DIR = obj
 INC_DIR = include
-LIB_DIR = /usr/include/minilibx-linux
+LIB_DIR = ~/goinfre/usr/include/minilibx-linux
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -I $(INC_DIR) -I $(LIB_DIR)
-LIBFLAGS = -L $(LIB_DIR) -lmlx -lXext -lX11
+LIBFLAGS = -lm -lXext -lX11 -L $(LIB_DIR) -lmlx
 
 NAME = fractol
 NAME_MANDATORY = .fractal_mandatory
@@ -62,7 +62,8 @@ BONUS_SRCS = \
 	$(SRC_FILES) \
 	$(SRC_DIR)/main_bonus.c \
 	$(SRC_DIR)/fractal_hooks_bonus.c \
-	$(FRACTALS_DIR)/tricorn.c
+	$(FRACTALS_DIR)/julia_dancing_bonus.c \
+	$(FRACTALS_DIR)/tricorn_bonus.c
 
 MANDATORY_OBJS = $(patsubst src/%.c, $(OBJ_DIR)/%.o, $(MANDATORY_SRCS))
 BONUS_OBJS = $(patsubst src/%.c, $(OBJ_DIR)/%.o, $(BONUS_SRCS))

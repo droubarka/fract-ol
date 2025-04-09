@@ -78,7 +78,7 @@ int	mandelbrot(char *title)
 		fractal->graph.color = 1;
 		fractal->graph.render(fractal);
 		fractal_hook(fractal, fractal_keyboard, fractal_mouse);
-		fractal_loop(fractal);
+		fractal_loop(fractal, NULL);
 	}
 	return (EXIT_FAILURE);
 }

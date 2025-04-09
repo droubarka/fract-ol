@@ -16,6 +16,7 @@
 # include "mlx.h"
 # include "utils.h"
 
+# include <math.h>
 # include <limits.h>
 # include <stdlib.h>
 # include <X11/keysym.h>
@@ -95,7 +96,7 @@ int				fractal_draw(t_fractal *fractal, \
 int				fractal_hook(t_fractal *fractal, \
 	int (*keyboard)(), int (*mouse)());
 int				fractal_update(t_fractal *fractal);
-int				fractal_loop(t_fractal *fractal);
+int				fractal_loop(t_fractal *fractal, int (*function)());
 int				fractal_close(t_fractal *fractal);
 
 /* /src/fractal_colors.c */
@@ -113,10 +114,11 @@ int				mandelbrot_render(t_fractal *fractal);
 int				julia(char *title, t_complex *c);
 int				julia_render(t_fractal *fractal);
 
-/* /src/fractals/tricorn.c */
+/* /src/fractals/julia_dancing_bonus.c */
+int				julia_dancing(char *title);
+
+/* /src/fractals/tricorn_bonus.c */
 int				tricorn(char *title);
 int				tricorn_render(t_fractal *fractal);
-
-/**/
 
 #endif

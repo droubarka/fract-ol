@@ -47,8 +47,12 @@ int	fractal_update(t_fractal *fractal)
 	return (1);
 }
 
-int	fractal_loop(t_fractal *fractal)
+int	fractal_loop(t_fractal *fractal, int (*function)())
 {
+	if (function != NULL)
+	{
+		mlx_loop_hook(fractal->mlx.mlx_ptr, function, fractal);
+	}
 	mlx_loop(fractal->mlx.mlx_ptr);
 	return (1);
 }
