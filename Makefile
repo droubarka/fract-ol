@@ -54,8 +54,15 @@ INC_FILES = \
 	$(INC_DIR)/fractal.h \
 	$(INC_DIR)/utils.h
 
-MANDATORY_SRCS = $(SRC_FILES) $(SRC_DIR)/main.c $(SRC_DIR)/fractal_hooks.c
-BONUS_SRCS = $(SRC_FILES) $(SRC_DIR)/main_bonus.c $(SRC_DIR)/fractal_hooks_bonus.c $(FRACTALS_DIR)/tricorn.c
+MANDATORY_SRCS = \
+	$(SRC_FILES) \
+	$(SRC_DIR)/main.c \
+	$(SRC_DIR)/fractal_hooks.c
+BONUS_SRCS = \
+	$(SRC_FILES) \
+	$(SRC_DIR)/main_bonus.c \
+	$(SRC_DIR)/fractal_hooks_bonus.c \
+	$(FRACTALS_DIR)/tricorn.c
 
 MANDATORY_OBJS = $(patsubst src/%.c, $(OBJ_DIR)/%.o, $(MANDATORY_SRCS))
 BONUS_OBJS = $(patsubst src/%.c, $(OBJ_DIR)/%.o, $(BONUS_SRCS))
