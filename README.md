@@ -6,20 +6,36 @@
 Here are some of the fractal visualizations included in the project:
 
 ### Mandelbrot Set
-![Mandelbrot Set](assets/mandelbrot-set.jpeg)
-This image of the Mandelbrot set shows detailed patterns at 300 DPI.
+<p align="center">
+  <img src="assets/mandelbrot-set.jpeg" alt="Mandelbrot Set">
+</p>
+<p align="center">
+	This image of the Mandelbrot set shows detailed patterns at 300 DPI.
+</p>
 
 ### Julia Set
-![Julia Set](assets/julia_0.285_0.01.png)
-This PNG image shows a detailed view of the Julia set fractal with parameters 0.285 and 0.01.
+<p align="center">
+  <img src="assets/julia_0.285_0.01.png" alt="Julia Set">
+</p>
+<p align="center">
+	This PNG image shows a detailed view of the Julia set fractal with parameters 0.285 and 0.01.
+</p>
 
 ### Tricorn
-![Tricorn](assets/tricorn.png)
-This image represents the Tricorn fractal, a variation of the Mandelbrot set with a unique transformation.
+<p align="center">
+  <img src="assets/tricorn.png" alt="Tricorn">
+</p>
+<p align="center">
+	This image represents the Tricorn fractal, a variation of the Mandelbrot set with a unique transformation.
+</p>
 
 ### Dancing Julia (Julia Set)
-![Dancing Julia](assets/dancing-julia.gif)
-This is a GIF animation of the Julia set fractal, showcasing its dancing behavior.
+<p align="center">
+  <img src="assets/dancing-julia.gif" alt="Dancing Julia">
+</p>
+<p align="center">
+	This is a GIF animation of the Julia set fractal, showcasing its dancing behavior.
+</p>
 
 ## Usage
 
