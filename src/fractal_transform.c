@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   fractal_transform.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mait-oub <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mait-oub <mait-oub@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 08:12:03 by mait-oub          #+#    #+#             */
 /*   Updated: 2025/03/01 09:10:38 by mait-oub         ###   ########.fr       */

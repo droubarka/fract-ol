@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   fractal_destroy.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mait-oub <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mait-oub <mait-oub@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 07:58:43 by mait-oub          #+#    #+#             */
 /*   Updated: 2025/04/08 07:58:45 by mait-oub         ###   ########.fr       */

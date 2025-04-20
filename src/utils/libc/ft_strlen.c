@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mait-oub <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mait-oub <mait-oub@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 17:41:09 by mait-oub          #+#    #+#             */
 /*   Updated: 2024/10/22 17:41:11 by mait-oub         ###   ########.fr       */

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   map_value.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mait-oub <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mait-oub <mait-oub@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 23:44:55 by mait-oub          #+#    #+#             */
 /*   Updated: 2025/02/27 23:44:56 by mait-oub         ###   ########.fr       */

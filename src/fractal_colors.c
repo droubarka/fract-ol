@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   fractal_colors.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mait-oub <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mait-oub <mait-oub@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 10:29:49 by mait-oub          #+#    #+#             */
 /*   Updated: 2025/03/04 05:57:01 by mait-oub         ###   ########.fr       */
@@ -54,20 +54,6 @@ static unsigned int	scheme_2(t_fractal *fractal, unsigned int iters)
 	return (r << 16 | g << 8 | b);
 }
 
-static unsigned int	scheme_3(t_fractal *fractal, unsigned int iters)
-{
-	unsigned char	r;
-	unsigned char	g;
-	unsigned char	b;
-	t_ldouble		t;
-
-	t = ((t_ldouble) iters) / fractal->graph.max_iterations;
-	r = (unsigned char)(40 * (1 - t) * (1 - t) * t);
-	g = (unsigned char)(255 * (1.0 - t) * t * t * t + 255 * t);
-	b = (unsigned char)(150 * (1 - t) * (1 - t) * t * t);
-	return (r << 16 | g << 8 | b);
-}
-
 unsigned int	fractal_color(t_fractal *fractal, unsigned int iterations)
 {
 	unsigned int	color;
@@ -76,7 +62,7 @@ unsigned int	fractal_color(t_fractal *fractal, unsigned int iterations)
 	{
 		return (0x0);
 	}
-	fractal->graph.color %= 4;
+	fractal->graph.color %= 3;
 	if (fractal->graph.color == 0)
 	{
 		color = scheme_0(fractal, iterations);
@@ -85,13 +71,9 @@ unsigned int	fractal_color(t_fractal *fractal, unsigned int iterations)
 	{
 		color = scheme_1(fractal, iterations);
 	}
-	else if (fractal->graph.color == 2)
-	{
-		color = scheme_2(fractal, iterations);
-	}
 	else
 	{
-		color = scheme_3(fractal, iterations);
+		color = scheme_2(fractal, iterations);
 	}
 	return (color);
 }

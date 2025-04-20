@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtold.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mait-oub <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mait-oub <mait-oub@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 23:05:31 by mait-oub          #+#    #+#             */
 /*   Updated: 2025/04/06 01:20:12 by mait-oub         ###   ########.fr       */

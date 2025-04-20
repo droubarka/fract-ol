@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   fractal_runtime.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mait-oub <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mait-oub <mait-oub@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 17:13:42 by mait-oub          #+#    #+#             */
 /*   Updated: 2025/02/28 02:56:12 by mait-oub         ###   ########.fr       */
@@ -34,7 +34,7 @@ int	fractal_hook(t_fractal *fractal, int (*keyboard)(), int (*mouse)())
 	mlx = &fractal->mlx;
 	mlx_hook(mlx->win_ptr, ButtonPress, ButtonPressMask, mouse, fractal);
 	mlx_hook(mlx->win_ptr, KeyPress, KeyPressMask, keyboard, fractal);
-	mlx_hook(mlx->win_ptr, 17, StructureNotifyMask, fractal_close, fractal);
+	mlx_hook(mlx->win_ptr, DestroyNotify, StructureNotifyMask, fractal_close, fractal);
 	return (1);
 }
 

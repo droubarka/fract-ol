@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mait-oub <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: mait-oub <mait-oub@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/01 20:07:18 by mait-oub          #+#    #+#              #
 #    Updated: 2025/03/22 16:37:12 by mait-oub         ###   ########.fr        #
@@ -15,11 +15,11 @@ MAKEFLAGS += --no-builtin-rules
 SRC_DIR = src
 OBJ_DIR = obj
 INC_DIR = include
-LIB_DIR = /usr/include/minilibx-linux
+LIB_DIR = minilibx-linux
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -I $(INC_DIR) -I $(LIB_DIR)
-LIBFLAGS = -lm -lXext -lX11 -L $(LIB_DIR) -lmlx
+LIBFLAGS = -L $(LIB_DIR) -lmlx -lXext -lX11 -lm
 
 NAME = fractol
 NAME_MANDATORY = .fractal_mandatory
@@ -79,28 +79,36 @@ $(PREBUILD):
 SYMB_LINKS = MANDATORY BONUS
 $(SYMB_LINKS):
 	@if [ "$(realpath $(NAME))" = "" ]; then \
+		echo -n "symlink "; \
 		ln -snvf $(NAME_$@) $(NAME); \
 	elif [ "$(realpath $(NAME_$@))" != "$(realpath $(NAME))" ]; then \
+		echo -n "symlink "; \
 		ln -snvf $(NAME_$@) $(NAME); \
 	else \
 		echo "make: '$(NAME)' is up to date."; \
 	fi
 
-.DEFAULT_GOAL = all
-.PHONY: $(SYMB_LINKS) clean
+.DEFAULT_GOAL = $(NAME_BONUS)
+.PHONY: $(SYMB_LINKS) clean mlx
 
-all: $(NAME_MANDATORY)
+mlx:
+	@$(MAKE) -C $(LIB_DIR) MAKEFLAGS=
+
+all: $(NAME_MANDATORY) $(NAME_BONUS)
 
 bonus: $(NAME_BONUS)
 
 $(NAME_MANDATORY): $(INC_FILES) $(MANDATORY_OBJS) | MANDATORY
-	$(CC) $(CFLAGS) -o $@ $(MANDATORY_OBJS) $(LIBFLAGS)
+	@echo "linking '$@' <- $(words $(MANDATORY_OBJS)) objects"
+	@$(CC) $(CFLAGS) -o $@ $(MANDATORY_OBJS) $(LIBFLAGS)
 
 $(NAME_BONUS): $(INC_FILES) $(BONUS_OBJS) | BONUS
-	$(CC) $(CFLAGS) -o $@ $(BONUS_OBJS) $(LIBFLAGS)
+	@echo "linking '$@' <- $(words $(BONUS_OBJS)) objects"
+	@$(CC) $(CFLAGS) -o $@ $(BONUS_OBJS) $(LIBFLAGS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(PREBUILD)
-	$(CC) $(CFLAGS) -c -o $@ $<
+	@echo "compile '$<' -> '$@'"
+	@$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
 	@rm -v -rf $(MANDATORY_OBJS) $(BONUS_OBJS)

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   julia.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mait-oub <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mait-oub <mait-oub@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 08:12:03 by mait-oub          #+#    #+#             */
 /*   Updated: 2025/02/26 08:12:04 by mait-oub         ###   ########.fr       */
@@ -50,8 +50,7 @@ int	julia_render(t_fractal *fractal)
 		while (x < WIDTH)
 		{
 			graph->z0.real = map_value(x, WIDTH - 1, graph->real_range);
-			graph->z0.imag = \
-			map_value(HEIGHT - 1 - y, HEIGHT - 1, graph->imag_range);
+			graph->z0.imag = map_value(HEIGHT - 1 - y, HEIGHT - 1, graph->imag_range);
 			fractal_draw(fractal, x, y, julia_get_iter);
 			x++;
 		}

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mait-oub <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mait-oub <mait-oub@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 06:22:17 by mait-oub          #+#    #+#             */
 /*   Updated: 2025/02/22 06:22:20 by mait-oub         ###   ########.fr       */
@@ -31,8 +31,7 @@ int	main(int ac, char *av[])
 
 	if (ac == 2)
 	{
-		if (!ft_strncmp(av[1], "-m", 3)
-			|| !ft_strncmp(av[1], "mandelbrot", 11))
+		if (!ft_strncmp(av[1], "-m", 3) || !ft_strncmp(av[1], "mandelbrot", 11))
 			return (mandelbrot("Fractal: Mandelbrot Set"));
 		if (!ft_strncmp(av[1], "-t", 3) || !ft_strncmp(av[1], "tricorn", 8))
 			return (tricorn("Fractal: Tricorn"));

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mait-oub <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mait-oub <mait-oub@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 06:22:17 by mait-oub          #+#    #+#             */
 /*   Updated: 2025/02/22 06:22:20 by mait-oub         ###   ########.fr       */
@@ -29,8 +29,7 @@ int	main(int argc, char *argv[])
 
 	if (argc == 2)
 	{
-		if (!ft_strncmp(argv[1], "-m", 3)
-			|| !ft_strncmp(argv[1], "mandelbrot", 11))
+		if (!ft_strncmp(argv[1], "-m", 3) || !ft_strncmp(argv[1], "mandelbrot", 11))
 		{
 			return (mandelbrot("Fractal: Mandelbrot Set"));
 		}
@@ -42,8 +41,7 @@ int	main(int argc, char *argv[])
 	}
 	else if (argc == 4)
 	{
-		if (!ft_strncmp(argv[1], "-j", 3)
-			|| !ft_strncmp(argv[1], "julia", 6))
+		if (!ft_strncmp(argv[1], "-j", 3) || !ft_strncmp(argv[1], "julia", 6))
 		{
 			init_julia_params(&julia_params, argv + 2);
 			return (julia("Fractal: Julia Set", &julia_params));

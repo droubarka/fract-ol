@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   julia_dancing_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mait-oub <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mait-oub <mait-oub@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 08:12:03 by mait-oub          #+#    #+#             */
 /*   Updated: 2025/04/09 20:42:51 by mait-oub         ###   ########.fr       */
@@ -15,7 +15,6 @@
 static int	julia_dancing_loop(t_fractal *fractal)
 {
 	static long double	a;
-	unsigned int		i;
 
 	fractal->graph.c.real = .7885 * cosl(a);
 	fractal->graph.c.imag = .7885 * sinl(a);
@@ -26,11 +25,7 @@ static int	julia_dancing_loop(t_fractal *fractal)
 		a = 0;
 	}
 	fractal->graph.render(fractal);
-	i = 0;
-	while (i < 1 << 27)
-	{
-		i++;
-	}
+//	usleep(100);
 	a -= .10;
 	return (1);
 }

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   mandelbrot.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mait-oub <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mait-oub <mait-oub@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 08:12:03 by mait-oub          #+#    #+#             */
 /*   Updated: 2025/02/26 08:12:04 by mait-oub         ###   ########.fr       */
@@ -51,8 +51,7 @@ int	mandelbrot_render(t_fractal *fractal)
 		{
 			graph->z0 = (t_complex){0.0, 0.0};
 			graph->c.real = map_value(x, WIDTH - 1, graph->real_range);
-			graph->c.imag = \
-			map_value(HEIGHT - 1 - y, HEIGHT - 1, graph->imag_range);
+			graph->c.imag = map_value(HEIGHT - 1 - y, HEIGHT - 1, graph->imag_range);
 			fractal_draw(fractal, x, y, mandelbrot_get_iter);
 			x++;
 		}
